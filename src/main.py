@@ -38,24 +38,32 @@ class MainWindow(QMainWindow, main_application):
         self.calculation_session = QWidget()
         self.calculation_session_layout = CalculationSessionLayout(self.calculation_id)
         self.calculation_session_layout.setupUi(self.calculation_session)
-        self.calculation_session_container.addTab(self.calculation_session, "NuevaSesion" + str(self.calculation_id))
+        last_index = self.calculation_session_container.addTab(self.calculation_session, "NuevaSesion" + str(self.calculation_id))
+        self.calculation_session_container.setCurrentIndex(last_index)
 
         self.calculation_id += 1
 
     def delete_current_calculation(self):
-        pass
+
+        # TODO: Cartel de ¿Esta seguro?
+
+        self.calculation_session_container.removeTab(self.calculation_session_container.currentIndex())
 
     def create_new_field_session(self):
 
         self.field_session = QWidget()
         self.field_session_layout = FieldSessionLayout(self.field_id)
         self.field_session_layout.setupUi(self.field_session)
-        self.field_session_container.addTab(self.field_session, "NuevaSesion" + str(self.field_id))
+        last_index = self.field_session_container.addTab(self.field_session, "NuevaSesion" + str(self.field_id))
+        self.field_session_container.setCurrentIndex(last_index)
 
         self.field_id += 1
 
     def delete_current_field_session(self):
-        pass
+
+        # TODO: Cartel de ¿Esta seguro?
+
+        self.field_session_container.removeTab(self.field_session_container.currentIndex())
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
