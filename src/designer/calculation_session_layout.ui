@@ -17,35 +17,52 @@
    <item>
     <widget class="QWidget" name="entry_parameters_container" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
+      <item alignment="Qt::AlignRight">
        <widget class="QLabel" name="na_label">
         <property name="text">
          <string>Na:</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item alignment="Qt::AlignLeft">
        <widget class="QLineEdit" name="na_edit_line"/>
       </item>
-      <item>
+      <item alignment="Qt::AlignRight">
        <widget class="QLabel" name="nbr_label">
         <property name="text">
          <string>Nbr:</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item alignment="Qt::AlignHCenter">
        <widget class="QLineEdit" name="nbr_edit_line"/>
       </item>
-      <item>
+      <item alignment="Qt::AlignRight">
        <widget class="QLabel" name="nc_label">
         <property name="text">
          <string>Nc:</string>
         </property>
        </widget>
       </item>
-      <item>
+      <item alignment="Qt::AlignHCenter">
        <widget class="QLineEdit" name="nc_edit_line"/>
+      </item>
+      <item>
+       <widget class="QLabel" name="nbi_min_label">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>Nbi mínimo:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="nbi_min_edit_line">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -53,7 +70,7 @@
    <item>
     <widget class="QWidget" name="chosen_parameters_container" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
+      <item alignment="Qt::AlignHCenter">
        <widget class="QComboBox" name="d_nz_combo_box">
         <item>
          <property name="text">
@@ -67,16 +84,24 @@
         </item>
        </widget>
       </item>
-      <item>
+      <item alignment="Qt::AlignLeft">
        <widget class="QLineEdit" name="from_parameter_edit_line"/>
       </item>
-      <item>
-       <widget class="QLineEdit" name="step_parameter_edit_line"/>
+      <item alignment="Qt::AlignHCenter">
+       <widget class="QLineEdit" name="step_parameter_edit_line">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
-      <item>
-       <widget class="QLineEdit" name="to_parameter_edit_line"/>
+      <item alignment="Qt::AlignRight">
+       <widget class="QLineEdit" name="to_parameter_edit_line">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+       </widget>
       </item>
-      <item>
+      <item alignment="Qt::AlignRight">
        <widget class="QCheckBox" name="multiple_values_check_box">
         <property name="text">
          <string>Multiple Values</string>
@@ -89,6 +114,19 @@
    <item>
     <widget class="QWidget" name="calculation_mode_container" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLabel" name="calculation_mode_label">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Maximum" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>Modo de Ejecución</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QRadioButton" name="parallel_mode_button">
         <property name="sizePolicy">
@@ -124,7 +162,7 @@
    <item>
     <widget class="QWidget" name="m_parameter_container" native="true">
      <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
+      <item alignment="Qt::AlignHCenter">
        <widget class="QPushButton" name="m_calculation_button">
         <property name="text">
          <string>Calcular m</string>
@@ -134,17 +172,17 @@
       <item>
        <widget class="QWidget" name="m_results_container" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
+         <item alignment="Qt::AlignHCenter">
           <widget class="QLabel" name="m_result_label">
            <property name="text">
-            <string>El rango de valores de m es: </string>
+            <string>El rango de valores de 'm' es: </string>
            </property>
           </widget>
          </item>
-         <item>
+         <item alignment="Qt::AlignLeft">
           <widget class="QLineEdit" name="m_from_value_edit_line"/>
          </item>
-         <item>
+         <item alignment="Qt::AlignLeft">
           <widget class="QLineEdit" name="m_to_value_edit_line"/>
          </item>
         </layout>
@@ -155,31 +193,47 @@
    </item>
    <item>
     <widget class="QWidget" name="solution_container" native="true">
-     <layout class="QHBoxLayout" name="horizontalLayout_5">
-      <item>
-       <widget class="QWidget" name="matplot_container" native="true">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
+     <layout class="QVBoxLayout" name="verticalLayout_3">
+      <item alignment="Qt::AlignHCenter">
+       <widget class="QPushButton" name="solution_calculation_button">
+        <property name="text">
+         <string>Calcular soluciones</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QListWidget" name="solution_values_list">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>200</width>
-          <height>16777215</height>
-         </size>
-        </property>
+       <widget class="QWidget" name="matplot_list_container" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="QWidget" name="matplot_container" native="true">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="solution_values_list">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>200</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+        <zorder>matplot_container</zorder>
+        <zorder>matplot_container</zorder>
+        <zorder>solution_values_list</zorder>
        </widget>
       </item>
      </layout>
@@ -188,7 +242,7 @@
    <item>
     <widget class="QWidget" name="management_button_container" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout_6">
-      <item>
+      <item alignment="Qt::AlignHCenter">
        <widget class="QPushButton" name="save_session_button">
         <property name="text">
          <string>Guardar Cálculo</string>
