@@ -7,16 +7,19 @@ from PyQt4.QtGui import *
 # Cargo mi diseño de sesion de calculo de solucion
 calculation_session_design = uic.loadUiType("designer/calculation_session_layout.ui")[0]
 
-class CalculationSessionLayout(calculation_session_design):
+class CalculationSessionLayout(QWidget, calculation_session_design):
 
     def __init__(self, identificator):
 
-        super(CalculationSessionLayout, self).__init__()
+        QWidget.__init__(self, None)
+
+        self.setupUi(self)
 
         self.identificator = identificator
 
         # Conecto los botones a sus funciones correspondientes
         self.m_calculation_button.clicked.connect(self.m_calculation)
+        self.solution_calculation_button.clicked.connect(self.solution_calculation)
 
     def m_calculation(self):
 
@@ -50,3 +53,24 @@ class CalculationSessionLayout(calculation_session_design):
         # A modo de ejemplo, se incluyen solo ciertos valores de m
         self.m_from_value_edit_line.setText("5")
         self.m_to_value_edit_line.setText("20")
+
+    def solution_calculation(self):
+
+        # Obtengo los parametros de 'm' calculados
+        """
+        self.m_from_value = self.m_from_value_edit_line.text().toInt()
+        self.m_to_value = self.m_to_value_edit_line.text().toInt()
+        """
+
+        # Validar parametros de entrada
+
+        # TODO: Llamar al controlador, debe llamar al modelo que llama
+        # al script en matlab
+        # TODO: Se debe devolver un matplot y una lista de valores solución
+        self.update_solution_values_list([(1, 2), (2, 2), (3, 4), (4, 5), (10, 10), (4, 6), (1, 12), (50, 12), (12312312312312, 3), (123, 4)])
+
+    def update_solution_values_list(self, solution_values):
+
+        for solution in solution_values:
+
+            self.solution_values_list.addItem(str(solution))

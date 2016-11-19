@@ -35,10 +35,8 @@ class MainWindow(QMainWindow, main_application):
 
     def create_new_calculation_session(self):
 
-        self.calculation_session = QWidget()
         self.calculation_session_layout = CalculationSessionLayout(self.calculation_id)
-        self.calculation_session_layout.setupUi(self.calculation_session)
-        last_index = self.calculation_session_container.addTab(self.calculation_session, "NuevaSesion" + str(self.calculation_id))
+        last_index = self.calculation_session_container.addTab(self.calculation_session_layout, "NuevaSesion" + str(self.calculation_id))
         self.calculation_session_container.setCurrentIndex(last_index)
 
         self.calculation_id += 1

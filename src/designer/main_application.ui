@@ -50,7 +50,14 @@
               <item alignment="Qt::AlignHCenter">
                <widget class="QPushButton" name="create_new_calculation_button">
                 <property name="text">
-                 <string>Crear nuevo cálculo</string>
+                 <string>Crear Nuevo Cálculo</string>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter">
+               <widget class="QPushButton" name="open_saved_calculation_button">
+                <property name="text">
+                 <string>Abrir Cálculo</string>
                 </property>
                </widget>
               </item>
@@ -136,6 +143,13 @@
                </widget>
               </item>
               <item alignment="Qt::AlignHCenter">
+               <widget class="QPushButton" name="open_saved_field_calculation">
+                <property name="text">
+                 <string>Abrir Cálculo de Campo</string>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter">
                <widget class="QPushButton" name="delete_field_calculation_button">
                 <property name="text">
                  <string>Eliminar Cálculo de Campo</string>
@@ -161,6 +175,7 @@
     </item>
    </layout>
   </widget>
+  <widget class="QStatusBar" name="status_bar"/>
  </widget>
  <resources/>
  <connections/>
