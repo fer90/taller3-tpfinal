@@ -20,6 +20,9 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
         # Conecto la eleccion de d'/Nz para habilitar/deshabilitar campos
         self.d_nz_combo_box.currentIndexChanged.connect(self.d_nz_change)
 
+        # Conecto eleccion de multiple values para habilitar/deshabilitar campos
+        self.multiple_values_check_box.stateChanged.connect(self.multiple_values_state_change)
+
         # Conecto los botones a sus funciones correspondientes
         self.m_calculation_button.clicked.connect(self.m_calculation)
         self.solution_calculation_button.clicked.connect(self.solution_calculation)
@@ -35,6 +38,18 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
 
             self.nbi_min_label.setEnabled(False)
             self.nbi_min_edit_line.setEnabled(False)
+
+    def multiple_values_state_change(self, current_index):
+
+        if self.multiple_values_check_box.isChecked():
+
+            self.step_parameter_edit_line.setEnabled(True)
+            self.to_parameter_edit_line.setEnabled(True)
+
+        else:
+
+            self.step_parameter_edit_line.setEnabled(False)
+            self.to_parameter_edit_line.setEnabled(False)
 
     def m_calculation(self):
 
