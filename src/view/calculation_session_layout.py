@@ -17,9 +17,24 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
 
         self.identificator = identificator
 
+        # Conecto la eleccion de d'/Nz para habilitar/deshabilitar campos
+        self.d_nz_combo_box.currentIndexChanged.connect(self.d_nz_change)
+
         # Conecto los botones a sus funciones correspondientes
         self.m_calculation_button.clicked.connect(self.m_calculation)
         self.solution_calculation_button.clicked.connect(self.solution_calculation)
+
+    def d_nz_change(self, current_index):
+
+        if str(self.d_nz_combo_box.currentText()) == 'Nz':
+
+            self.nbi_min_label.setEnabled(True)
+            self.nbi_min_edit_line.setEnabled(True)
+
+        else:
+
+            self.nbi_min_label.setEnabled(False)
+            self.nbi_min_edit_line.setEnabled(False)
 
     def m_calculation(self):
 
