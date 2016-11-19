@@ -49,10 +49,8 @@ class MainWindow(QMainWindow, main_application):
 
     def create_new_field_session(self):
 
-        self.field_session = QWidget()
         self.field_session_layout = FieldSessionLayout(self.field_id)
-        self.field_session_layout.setupUi(self.field_session)
-        last_index = self.field_session_container.addTab(self.field_session, "NuevaSesion" + str(self.field_id))
+        last_index = self.field_session_container.addTab(self.field_session_layout, "NuevaSesion" + str(self.field_id))
         self.field_session_container.setCurrentIndex(last_index)
 
         self.field_id += 1

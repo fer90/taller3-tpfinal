@@ -26,6 +26,7 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
         # Conecto los botones a sus funciones correspondientes
         self.m_calculation_button.clicked.connect(self.m_calculation)
         self.solution_calculation_button.clicked.connect(self.solution_calculation)
+        self.save_calculation_session_button.clicked.connect(self.save_calculation_session)
 
     def d_nz_change(self, current_index):
 
@@ -104,3 +105,8 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
         for solution in solution_values:
 
             self.solution_values_list.addItem(str(solution))
+
+    def save_calculation_session(self):
+
+        # TODO: Llamar al controlador para que guarde la sesion
+        pass

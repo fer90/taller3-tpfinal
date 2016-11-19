@@ -104,7 +104,7 @@
       <item alignment="Qt::AlignRight">
        <widget class="QCheckBox" name="multiple_values_check_box">
         <property name="text">
-         <string>Multiple Values</string>
+         <string>Multiples Valores</string>
         </property>
        </widget>
       </item>
@@ -231,9 +231,6 @@
           </widget>
          </item>
         </layout>
-        <zorder>matplot_container</zorder>
-        <zorder>matplot_container</zorder>
-        <zorder>solution_values_list</zorder>
        </widget>
       </item>
      </layout>
@@ -243,7 +240,7 @@
     <widget class="QWidget" name="management_button_container" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout_6">
       <item alignment="Qt::AlignHCenter">
-       <widget class="QPushButton" name="save_session_button">
+       <widget class="QPushButton" name="save_calculation_session_button">
         <property name="text">
          <string>Guardar Cálculo</string>
         </property>

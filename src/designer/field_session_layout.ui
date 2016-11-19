@@ -73,7 +73,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="eh24_value"/>
+          <widget class="QLineEdit" name="first_field_eh24_value"/>
          </item>
         </layout>
        </widget>
@@ -89,7 +89,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="eh53_value_2"/>
+          <widget class="QLineEdit" name="first_field_eh53_value"/>
          </item>
         </layout>
        </widget>
@@ -143,7 +143,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="eh24_value_2"/>
+          <widget class="QLineEdit" name="second_field_eh24_value"/>
          </item>
         </layout>
        </widget>
@@ -159,7 +159,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="eh53_value"/>
+          <widget class="QLineEdit" name="second_field_eh53_value"/>
          </item>
         </layout>
        </widget>
@@ -171,7 +171,7 @@
     <widget class="QWidget" name="save_session_button_container" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout_8">
       <item>
-       <widget class="QPushButton" name="save_session_button">
+       <widget class="QPushButton" name="save_field_session_button">
         <property name="text">
          <string>Guardar Campos</string>
         </property>
