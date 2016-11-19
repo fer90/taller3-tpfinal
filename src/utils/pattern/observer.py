@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from abc import ABCMeta
+from abc import abstractmethod
 
 """
 Estas clases definen el patron Observer para actualizar ciertos campos de la
@@ -8,7 +8,7 @@ GUI oportunamente.
 Se aprovecha la herencia multiple de Python
 """
 
-class Listener:
+class Observer:
 
     def __init__(self, name, subject):
         self.name = name
@@ -21,14 +21,14 @@ class Listener:
 class Subject:
 
      def __init__(self):
-         self.listeners = []
+         self.observers = []
  
-     def register(self, listener):
-         self.listeners.append(listener)
+     def register(self, observer):
+         self.observers.append(observer)
  
-     def unregister(self, listener):
-         self.listeners.remove(listener)
+     def unregister(self, observer):
+         self.observers.remove(observer)
  
-     def notify_listeners(self, event):
-         for listener in self.listeners:
-             listener.notify(event)
+     def notify_observers(self, event):
+         for observer in self.observers:
+             observer.notify(event)

@@ -57,7 +57,7 @@
               <item alignment="Qt::AlignHCenter">
                <widget class="QPushButton" name="open_saved_calculation_button">
                 <property name="text">
-                 <string>Abrir Cálculo</string>
+                 <string>Cargar Cálculo Guardado</string>
                 </property>
                </widget>
               </item>
@@ -145,7 +145,7 @@
               <item alignment="Qt::AlignHCenter">
                <widget class="QPushButton" name="open_saved_field_calculation">
                 <property name="text">
-                 <string>Abrir Cálculo de Campo</string>
+                 <string>Cargar Cálculo de Campo Guardado</string>
                 </property>
                </widget>
               </item>

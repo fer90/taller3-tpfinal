@@ -26,11 +26,13 @@ class MainWindow(QMainWindow, main_application):
         self.calculation_id = 1
         self.field_id = 1
 
-        # Le agrego funcionalidad a los botones que abren y cierran sesiones de calculo y campo
+        # Le agrego funcionalidad a los botones que abren, cargan y cierran sesiones de calculo y campo
         self.create_new_calculation_button.clicked.connect(self.create_new_calculation_session)
+        self.open_saved_calculation_button.clicked.connect(self.open_saved_calculation_session)
         self.delete_calculation_button.clicked.connect(self.delete_current_calculation)
 
         self.create_field_calculation_button.clicked.connect(self.create_new_field_session)
+        self.open_saved_field_calculation.clicked.connect(self.open_saved_field_session)
         self.delete_field_calculation_button.clicked.connect(self.delete_current_field_session)
 
     def create_new_calculation_session(self):
@@ -40,6 +42,10 @@ class MainWindow(QMainWindow, main_application):
         self.calculation_session_container.setCurrentIndex(last_index)
 
         self.calculation_id += 1
+
+    def open_saved_calculation_session(self):
+
+        pass
 
     def delete_current_calculation(self):
 
@@ -54,6 +60,10 @@ class MainWindow(QMainWindow, main_application):
         self.field_session_container.setCurrentIndex(last_index)
 
         self.field_id += 1
+
+    def open_saved_field_session(self):
+
+        pass
 
     def delete_current_field_session(self):
 
