@@ -3,6 +3,9 @@
 import sys
 
 sys.path.append('../')
+
+from utils.pattern.observer import Subject
+
 """
 Esta clase representa los pares solucion del calculo principal.
 """
@@ -20,7 +23,7 @@ class CalculationSolution(Subject):
 
         self.solution = solution
 
-        # Notifico a los observers la nueva solucion
+        # Notifico a observers la nueva solucion para que actualicen
         self.notify_observers(self.solution)
 
     def get_solution(self):

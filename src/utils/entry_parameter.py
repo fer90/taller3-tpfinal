@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from pattern.observer import Subject
+from utils.pattern.observer import Subject
 
 """
 Esta clase define un parametro de entrada de algun tipo de calculo

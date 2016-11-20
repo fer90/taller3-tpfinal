@@ -11,9 +11,9 @@ from view.calculation_session_layout import CalculationSessionLayout
 from view.field_session_layout import FieldSessionLayout
 
 # Cargo mi diseño de aplicacion principal
-main_application = uic.loadUiType("designer/main_application.ui")[0]
+main_window = uic.loadUiType("designer/main_application.ui")[0]
 
-class MainWindow(QMainWindow, main_application):
+class MainWindow(QMainWindow, main_window):
 
     def __init__(self, parent = None):
 

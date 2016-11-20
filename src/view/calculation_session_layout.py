@@ -7,7 +7,10 @@ from PyQt4.QtGui import *
 import sys
 sys.path.append('../')
 
+from model.calculation_session import CalculationMode
 from controller.calculation_session_controller import CalculationSessionController
+from view.calculation_solution_view import CalculationSolutionView
+from view.m_parameter_view import MParameterView
 
 # Cargo mi diseño de sesion de calculo de solucion
 calculation_session_design = uic.loadUiType("designer/calculation_session_layout.ui")[0]
@@ -23,6 +26,31 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
         self.identificator = identificator
         self.controller = CalculationSessionController()
 
+        self.initialize_view_objects()
+        self.initialize_view_connections()
+        self.initialize_view_observers()
+
+    def initialize_view_objects(self):
+
+        # Parametros iniciales
+        self.na = None
+        self.nbr = None
+        self.nc = None
+        self.d_nz_from = None
+        self.nbi_min = None
+        self.d_nz_step = None
+        self.d_nz_to = None
+        self.calculation_mode = None
+
+        # Parametro 'm'
+        self.m_from_parameter = MParameterView("m_from", self.m_from_value_edit_line)
+        self.m_to_parameter = MParameterView("m_to", self.m_to_value_edit_line)
+
+        # Lista Solucion
+        self.solution = CalculationSolutionView("solution", self.solution_values_list, self.matplot_container)
+
+    def initialize_view_connections(self):
+
         # Conecto la eleccion de d'/Nz para habilitar/deshabilitar campos
         self.d_nz_combo_box.currentIndexChanged.connect(self.d_nz_change)
 
@@ -33,6 +61,11 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
         self.m_calculation_button.clicked.connect(self.m_calculation)
         self.solution_calculation_button.clicked.connect(self.solution_calculation)
         self.save_calculation_session_button.clicked.connect(self.save_calculation_session)
+
+    def initialize_view_observers(self):
+
+        self.controller.register_m_observers(self.m_from_parameter, self.m_to_parameter)
+        self.controller.register_solution_observer(self.solution)
 
     def d_nz_change(self, current_index):
 
@@ -61,36 +94,35 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
     def m_calculation(self):
 
         # Obtener todos los parametros de entrada
-        """
-        TODO: Corroborar que sean ints y no floats
-        self.na = self.na_edit_line.text().toInt()
-        self.nbr = self.nbr_edit_line.text().toInt()
-        self.nc = self.nc_edit_line.text().toInt()
-        self.d_nz_from = self.from_parameter_edit_line
+        try:
+            self.na = float(self.na_edit_line.text())
+            self.nbr = float(self.nbr_edit_line.text())
+            self.nc = float(self.nc_edit_line.text())
+            self.d_nz_from = float(self.from_parameter_edit_line.text())
 
-        if str(self.d_nz_combo_box.currentText()) == 'Nz':
-            self.nbi_min = self.nbi_min_edit_line
+            if str(self.d_nz_combo_box.currentText()) == 'Nz':
+                self.nbi_min = float(self.nbi_min_edit_line.text())
 
-        if self.multiple_values_check_box.isChecked():
+            if self.multiple_values_check_box.isChecked():
 
-            self.d_nz_step = self.step_parameter_edit_line
-            self.d_nz_to = self.to_parameter_edit_line
+                self.d_nz_step = float(self.step_parameter_edit_line.text())
+                self.d_nz_to = float(self.to_parameter_edit_line.text())
 
-        TODO: Crear enum para el modo de ejecucion!
+        except ValueError:
+            # TODO: Mandar algun QDialog diciendo que los valores no son los correctos y retornar
+            pass
+
+        # TODO: Crear enum para el modo de ejecucion!
         if self.parallel_mode_button.isChecked():
-            self.calculation_mode = Mode.Parallel
+            self.calculation_mode = CalculationMode.Parallel
         else:
-            self.calculation_mode = Mode.Perpendicular
-        """
+            self.calculation_mode = CalculationMode.Perpendicular
 
         # Validar parametros de entrada
 
-        # TODO: Llamar al controlador para calcular el valor de m
+        # TODO: Pasarle al controlador los parametros correctos
         # TODO: Utilizar timeout si es necesario
-        # A modo de ejemplo, se incluyen solo ciertos valores de m
-        # self.controller.solve_m_parameter(self.na, self.nbr, self.nc, self.d_nz_from, self.nz, self.nbi_min, self.calculation_mode)
-        self.m_from_value_edit_line.setText("5")
-        self.m_to_value_edit_line.setText("20")
+        self.controller.solve_m_parameter(self.na, self.nbr, self.nc, self.d_nz_from, self.d_nz_from, self.nbi_min, self.calculation_mode)
 
     def solution_calculation(self):
 
@@ -104,14 +136,8 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
 
         # TODO: Llamar al controlador, debe llamar al modelo que llama
         # al script en matlab
-        # TODO: Se debe devolver un matplot y una lista de valores solución
-        self.update_solution_values_list([(1, 2), (2, 2), (3, 4), (4, 5), (10, 10), (4, 6), (1, 12), (50, 12), (12312312312312, 3), (123, 4)])
-
-    def update_solution_values_list(self, solution_values):
-
-        for solution in solution_values:
-
-            self.solution_values_list.addItem(str(solution))
+        # TODO: Se debe devolver una lista de tuplas (pares solución)
+        self.controller.solve_calculation(self.m_from_parameter.get_value(), self.m_to_parameter.get_value())
 
     def save_calculation_session(self):
 

@@ -6,7 +6,7 @@ sys.path.append('../')
 
 from enum import Enum
 
-from calculation_solver import CalculationSolver
+from model.calculation_solver import CalculationSolver
 from utils.entry_parameter import EntryParameter
 from utils.multiple_values_entry_parameter import MultipleValuesEntryParameter
 
@@ -57,15 +57,24 @@ class CalculationSession(object):
         # TODO: Setear todos los parametros
         self.calculation_solver.solve_m_parameter(na, nbr, nc, d, nz, nbi_min, mode)
 
-    # Metodos para registrar observadores de parametros
-    def register_m_observer(self, observer):
+    def calcule_solution(self, m_from, m_to):
 
-        self.solution.m.register(observer)
+        # TODO: Ver parametros que se necesitan
+        self.calculation_solver.solve_calculation()
+
+    def save_session(self, filename):
+        # TODO: Implementar
+        pass
+
+    # Metodos para registrar observadores de parametros
+    def register_m_from_observer(self, observer):
+
+        self.calculation_solver.register_m_from_observer(observer)
+
+    def register_m_to_observer(self, observer):
+
+        self.calculation_solver.register_m_to_observer(observer)
 
     def register_solution_observer(self, observer):
 
-        self.solution.solution.register(observer)
-
-    def save_session(self, filename):
-
-        pass
+        self.calculation_solver.register_solution_observer(observer)

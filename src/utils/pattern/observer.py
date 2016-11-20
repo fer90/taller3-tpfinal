@@ -10,9 +10,12 @@ Se aprovecha la herencia multiple de Python
 
 class Observer:
 
-    def __init__(self, name, subject):
+    def __init__(self, name, subject = None):
+
         self.name = name
-        subject.register(self)
+
+        if subject is not None:
+            subject.register(self)
 
     @abstractmethod
     def notify(self, event):
