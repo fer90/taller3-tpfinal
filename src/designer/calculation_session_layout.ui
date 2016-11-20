@@ -161,8 +161,8 @@
    </item>
    <item>
     <widget class="QWidget" name="m_parameter_container" native="true">
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item alignment="Qt::AlignHCenter">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
        <widget class="QPushButton" name="m_calculation_button">
         <property name="text">
          <string>Calcular m</string>
@@ -170,23 +170,17 @@
        </widget>
       </item>
       <item>
-       <widget class="QWidget" name="m_results_container" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item alignment="Qt::AlignHCenter">
-          <widget class="QLabel" name="m_result_label">
-           <property name="text">
-            <string>El rango de valores de 'm' es: </string>
-           </property>
-          </widget>
-         </item>
-         <item alignment="Qt::AlignLeft">
-          <widget class="QLineEdit" name="m_from_value_edit_line"/>
-         </item>
-         <item alignment="Qt::AlignLeft">
-          <widget class="QLineEdit" name="m_to_value_edit_line"/>
-         </item>
-        </layout>
+       <widget class="QLabel" name="m_result_label">
+        <property name="text">
+         <string>El rango de valores de 'm' es: </string>
+        </property>
        </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="m_to_value_edit_line"/>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="m_from_value_edit_line"/>
       </item>
      </layout>
     </widget>
@@ -207,11 +201,12 @@
          <item>
           <widget class="QWidget" name="matplot_container" native="true">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <layout class="QVBoxLayout" name="matplot_container_layout"/>
           </widget>
          </item>
          <item>

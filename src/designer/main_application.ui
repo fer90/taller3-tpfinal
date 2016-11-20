@@ -32,20 +32,26 @@
          <widget class="QWidget" name="calculation_window_container" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
-            <widget class="QWidget" name="calculation_window_label_container" native="true">
-             <layout class="QHBoxLayout" name="horizontalLayout_4">
-              <item>
-               <widget class="QLabel" name="calculation_window_label">
-                <property name="text">
-                 <string>Cálculo de Pares Solución</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+            <widget class="QLabel" name="calculation_window_label">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Cálculo de Pares Solución</string>
+             </property>
             </widget>
            </item>
            <item>
             <widget class="QWidget" name="calculation_management_buttons_container" native="true">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <layout class="QHBoxLayout" name="horizontalLayout_3">
               <item alignment="Qt::AlignHCenter">
                <widget class="QPushButton" name="create_new_calculation_button">

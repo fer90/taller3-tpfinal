@@ -121,16 +121,18 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
         # Validar parametros de entrada
 
         # TODO: Pasarle al controlador los parametros correctos
-        # TODO: Utilizar timeout si es necesario
+        # TODO: Utilizar timeout
         self.controller.solve_m_parameter(self.na, self.nbr, self.nc, self.d_nz_from, self.d_nz_from, self.nbi_min, self.calculation_mode)
 
     def solution_calculation(self):
 
         # Obtengo los parametros de 'm' calculados
-        """
-        self.m_from_value = self.m_from_value_edit_line.text().toInt()
-        self.m_to_value = self.m_to_value_edit_line.text().toInt()
-        """
+        try:
+            self.m_from_value = int(self.m_from_value_edit_line.text())
+            self.m_to_value = int(self.m_to_value_edit_line.text())
+        except ValueError:
+            # TODO: QDialog avisando que hay parametros incorrectos y retornar
+            pass
 
         # Validar parametros de entrada
 

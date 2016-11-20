@@ -20,6 +20,10 @@ class MParameterView(Observer):
 
         self.layout_object.setText(str(event))
 
+    def set_value(self, value):
+
+        self.layout_object.setText(str(value))
+
     def get_value(self):
 
         # TODO: Validarlo!

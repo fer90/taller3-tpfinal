@@ -4,6 +4,7 @@ import sys
 sys.path.append('../')
 from utils.pattern.observer import Observer
 
+from view.matplot_creator import MatplotCreator
 """
 Esta clase encapsula los objetos de la vista correspondientes a la solucion.
 Por consiguiente, es el Observer del objeto correspondiente en el modelo
@@ -18,9 +19,14 @@ class CalculationSolutionView(Observer):
         self.solution_list_view = solution_list_view_object
         self.matplot_view = matplot_view_object
 
-    def notify(self, event):
+        self.matplot_creator = MatplotCreator(self.matplot_view)
+
+    def notify(self, solution_list):
 
         # El 'evento' es una lista de tuplas a actualizar
-        for solution in event:
+        for solution in solution_list:
 
             self.solution_list_view.addItem(str(solution))
+
+        # TODO: Update del grafico!
+        self.matplot_creator.create_plot(solution_list)
