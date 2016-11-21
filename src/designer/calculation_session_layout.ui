@@ -177,10 +177,10 @@
        </widget>
       </item>
       <item>
-       <widget class="QLineEdit" name="m_to_value_edit_line"/>
+       <widget class="QLineEdit" name="m_from_value_edit_line"/>
       </item>
       <item>
-       <widget class="QLineEdit" name="m_from_value_edit_line"/>
+       <widget class="QLineEdit" name="m_to_value_edit_line"/>
       </item>
      </layout>
     </widget>

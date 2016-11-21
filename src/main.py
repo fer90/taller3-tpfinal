@@ -9,6 +9,7 @@ from PyQt4 import uic
 
 from view.calculation_session_layout import CalculationSessionLayout
 from view.field_session_layout import FieldSessionLayout
+from view.comparation_session_layout import ComparationSessionLayout
 
 # Cargo mi diseño de aplicacion principal
 main_window = uic.loadUiType("designer/main_application.ui")[0]
@@ -25,6 +26,9 @@ class MainWindow(QMainWindow, main_window):
         # TODO: Levantarlos de disco!
         self.calculation_id = 1
         self.field_id = 1
+
+        # Creo el objeto correspondiente a la pantalla de Comparaciones
+        self.comparation_view = ComparationSessionLayout(self.matplot_container, self.saved_calculation_list, self.saved_calculation_info)
 
         # Le agrego funcionalidad a los botones que abren, cargan y cierran sesiones de calculo y campo
         self.create_new_calculation_button.clicked.connect(self.create_new_calculation_session)
