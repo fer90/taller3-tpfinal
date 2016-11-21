@@ -17,6 +17,10 @@ class Observer:
         if subject is not None:
             subject.register(self)
 
+    def set_name(self, new_name):
+
+        self.name = new_name
+
     @abstractmethod
     def notify(self, event):
         pass

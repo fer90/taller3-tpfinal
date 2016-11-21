@@ -128,6 +128,7 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
 
         # Obtengo los parametros de 'm' calculados
         try:
+            self.d_nz_from = float(self.from_parameter_edit_line.text())
             self.m_from_value = int(self.m_from_value_edit_line.text())
             self.m_to_value = int(self.m_to_value_edit_line.text())
         except ValueError:
@@ -139,6 +140,7 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
         # TODO: Llamar al controlador, debe llamar al modelo que llama
         # al script en matlab
         # TODO: Se debe devolver una lista de tuplas (pares solución)
+        self.solution.set_name("d'/Nz = " + str(self.d_nz_from))
         self.controller.solve_calculation(self.m_from_parameter.get_value(), self.m_to_parameter.get_value())
 
     def save_calculation_session(self):

@@ -24,9 +24,12 @@ class CalculationSolutionView(Observer):
     def notify(self, solution_list):
 
         # El 'evento' es una lista de tuplas a actualizar
-        for solution in solution_list:
+        #for solution in solution_list:
 
-            self.solution_list_view.addItem(str(solution))
+        #    self.solution_list_view.addItem(str(solution))
+        # TODO: Rediseñar para cuando haya multiples soluciones (barrido)
+        self.solution_list_view.clear()
+        self.solution_list_view.addItem(self.name)
 
         # TODO: Update del grafico!
         self.matplot_creator.create_plot(solution_list)
