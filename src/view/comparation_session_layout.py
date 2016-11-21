@@ -32,17 +32,20 @@ class ComparationSessionLayout(object):
         item.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
         item.setData(Qt.Unchecked, Qt.CheckStateRole)
         item.setCheckable(True)
+        item.setSelectable(True)
         model.appendRow(item)
         model.connect(model, SIGNAL('itemChanged( QStandardItem *)'), self.item_changed)
         item = QStandardItem("Segundo Calculo Guardado (Nz = 12)")
         item.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
         item.setData(Qt.Unchecked, Qt.CheckStateRole)
         item.setCheckable(True)
+        item.setSelectable(True)
         model.appendRow(item)
         item = QStandardItem("Tercer Calculo Guardado (d' = 300)")
         item.setFlags(Qt.ItemIsUserCheckable | Qt.ItemIsEnabled)
         item.setData(Qt.Unchecked, Qt.CheckStateRole)
         item.setCheckable(True)
+        item.setSelectable(True)
         model.appendRow(item)
 
         self.saved_calculations_list_view.setModel(model)
@@ -51,3 +54,11 @@ class ComparationSessionLayout(object):
     def item_changed(self):
 
         self.matplot_creator.create_plot([])
+
+        layout = QVBoxLayout()
+        layout.addWidget(QLabel("Na = 1"))
+        layout.addWidget(QLabel("Nbr = 1.5"))
+        layout.addWidget(QLabel("Nc = 1"))
+        layout.addWidget(QLabel("d' = 10"))
+        layout.addWidget(QLabel("Modo Paralelo"))
+        self.saved_calculations_info_view.setLayout(layout)
