@@ -7,6 +7,7 @@ sys.path.append('../')
 from enum import Enum
 
 from model.calculation_solver import CalculationSolver
+from model.m_container import MContainer
 from utils.entry_parameter import EntryParameter
 from utils.multiple_values_entry_parameter import MultipleValuesEntryParameter
 
@@ -49,13 +50,34 @@ class CalculationSession(object):
         # Modo de ejecucion del calculo
         self.calculation_mode = CalculationMode.Parallel
 
-        # Solucion del calculo (parametro m y pares solucion)
+        # Contenedor de el/los parametro(s) 'm'
+        self.m = MContainer()
+
+        # Solucion de m y del calculo
         self.calculation_solver = CalculationSolver()
 
     def calcule_m_parameter(self, na, nbr, nc, d, nz, nbi_min, mode):
 
+        m_solution = []
+
         # TODO: Setear todos los parametros
-        self.calculation_solver.solve_m_parameter(na, nbr, nc, d, nz, nbi_min, mode)
+        self.d = d
+        
+        for d_value in range(d.get_value_from(), d.get_value_to(), d.get_value_step()):
+
+            current_m_solution = []
+
+            current_m_solution.append(d_value)
+
+            m_range = self.calculation_solver.solve_m_parameter(na, nbr, nc, d, nz, nbi_min, mode)
+
+            # TODO: Encapsular rango de m en una clase
+            current_m_solution.append(m_range[0])
+            current_m_solution.append(m_range[1])
+
+            m_solution.append(current_m_solution)
+
+        self.m.set_parameters(m_solution)
 
     def calcule_solution(self, m_from, m_to):
 
@@ -67,13 +89,9 @@ class CalculationSession(object):
         pass
 
     # Metodos para registrar observadores de parametros
-    def register_m_from_observer(self, observer):
+    def register_m_observer(self, observer):
 
-        self.calculation_solver.register_m_from_observer(observer)
-
-    def register_m_to_observer(self, observer):
-
-        self.calculation_solver.register_m_to_observer(observer)
+        self.m.register(observer)
 
     def register_solution_observer(self, observer):
 

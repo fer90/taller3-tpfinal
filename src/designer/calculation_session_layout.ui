@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>808</width>
+    <width>835</width>
     <height>597</height>
    </rect>
   </property>
@@ -19,6 +19,11 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item alignment="Qt::AlignRight">
        <widget class="QLabel" name="na_label">
+        <property name="font">
+         <font>
+          <underline>true</underline>
+         </font>
+        </property>
         <property name="text">
          <string>Na:</string>
         </property>
@@ -29,6 +34,11 @@
       </item>
       <item alignment="Qt::AlignRight">
        <widget class="QLabel" name="nbr_label">
+        <property name="font">
+         <font>
+          <underline>true</underline>
+         </font>
+        </property>
         <property name="text">
          <string>Nbr:</string>
         </property>
@@ -39,6 +49,11 @@
       </item>
       <item alignment="Qt::AlignRight">
        <widget class="QLabel" name="nc_label">
+        <property name="font">
+         <font>
+          <underline>true</underline>
+         </font>
+        </property>
         <property name="text">
          <string>Nc:</string>
         </property>
@@ -51,6 +66,11 @@
        <widget class="QLabel" name="nbi_min_label">
         <property name="enabled">
          <bool>false</bool>
+        </property>
+        <property name="font">
+         <font>
+          <underline>true</underline>
+         </font>
         </property>
         <property name="text">
          <string>Nbi mínimo:</string>
@@ -103,17 +123,33 @@
       </item>
       <item alignment="Qt::AlignRight">
        <widget class="QCheckBox" name="multiple_values_check_box">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="text">
          <string>Multiples Valores</string>
         </property>
        </widget>
       </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QWidget" name="calculation_mode_container" native="true">
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Minimum</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
       <item>
        <widget class="QLabel" name="calculation_mode_label">
         <property name="sizePolicy">
@@ -122,8 +158,13 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="font">
+         <font>
+          <underline>true</underline>
+         </font>
+        </property>
         <property name="text">
-         <string>Modo de Ejecución</string>
+         <string>Modo de Ejecución:</string>
         </property>
        </widget>
       </item>
@@ -134,6 +175,12 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
         </property>
         <property name="text">
          <string>Paralelo</string>
@@ -150,6 +197,12 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
         </property>
         <property name="text">
          <string>Perpendicular</string>
@@ -170,17 +223,24 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="m_result_label">
-        <property name="text">
-         <string>El rango de valores de 'm' es: </string>
+       <widget class="QTableWidget" name="m_value_table">
+        <property name="wordWrap">
+         <bool>true</bool>
         </property>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>true</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>d'</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>m</string>
+         </property>
+        </column>
        </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="m_from_value_edit_line"/>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="m_to_value_edit_line"/>
       </item>
      </layout>
     </widget>
@@ -232,12 +292,12 @@
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="management_button_container" native="true">
+    <widget class="QWidget" name="export_calculation_session_button_container" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout_6">
       <item alignment="Qt::AlignHCenter">
-       <widget class="QPushButton" name="save_calculation_session_button">
+       <widget class="QPushButton" name="export_calculation_session_button">
         <property name="text">
-         <string>Guardar Cálculo</string>
+         <string>Exportar Cálculo Solución</string>
         </property>
        </widget>
       </item>

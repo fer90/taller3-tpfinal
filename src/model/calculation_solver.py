@@ -18,15 +18,13 @@ class CalculationSolver(object):
 
         super(CalculationSolver, self).__init__()
 
-        self.m = MultipleValuesEntryParameter("m")
-
         self.solution = CalculationSolution()
 
     def solve_m_parameter(self, na, nbr, nc, d, nz, nbi_min, mode):
 
-        # TODO: Llamar al script en matlab correspondiente y devolver el valor inicial y final de 'm'
-        self.m.set_value_from(1)
-        self.m.set_value_to(2)
+        # Retorna una tupla que representa el rango de m
+        # TODO: Llamar script de matlab
+        return (3, 10)
 
     def solve_calculation(self):
 

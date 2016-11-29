@@ -20,7 +20,7 @@ class FieldSessionLayout(QWidget, field_session_design):
         # Conecto los botones a sus funciones correspondientes
         self.first_field_calculation_button.clicked.connect(self.first_field_calculation)
         self.second_field_calculation_button.clicked.connect(self.second_field_calculation)
-        self.save_field_session_button.clicked.connect(self.save_field_session)
+        self.export_field_calculation_button.clicked.connect(self.export_field_session)
 
     def first_field_calculation(self):
 
@@ -44,6 +44,6 @@ class FieldSessionLayout(QWidget, field_session_design):
         self.second_field_eh24_value.setText("1 + 2i")
         self.second_field_eh53_value.setText("4 + 6i")
 
-    def save_field_session(self):
+    def export_field_session(self):
 
         pass

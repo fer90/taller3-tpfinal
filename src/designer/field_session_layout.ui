@@ -63,33 +63,44 @@
        </widget>
       </item>
       <item>
-       <widget class="QWidget" name="eh24_container" native="true">
+       <widget class="QWidget" name="first_field_solution_container" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QLabel" name="eh24_label">
-           <property name="text">
-            <string>E_2y/E_4y</string>
+          <widget class="QTableWidget" name="first_field_solution_table">
+           <property name="gridStyle">
+            <enum>Qt::DotLine</enum>
            </property>
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>d'</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignTop</set>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Re(E_2y/E_4y)</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Im(E_5y/E_3y)</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </column>
           </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="first_field_eh24_value"/>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
-       <widget class="QWidget" name="eh53_container_2" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
-          <widget class="QLabel" name="eh53_label_2">
-           <property name="text">
-            <string>E_5y/E_3y</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="first_field_eh53_value"/>
          </item>
         </layout>
        </widget>
@@ -133,33 +144,41 @@
        </widget>
       </item>
       <item>
-       <widget class="QWidget" name="eh24_container_2" native="true">
-        <layout class="QHBoxLayout" name="horizontalLayout_7">
-         <item>
-          <widget class="QLabel" name="eh24_label_2">
-           <property name="text">
-            <string>H_2y/H_4y</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="second_field_eh24_value"/>
-         </item>
-        </layout>
-       </widget>
-      </item>
-      <item>
        <widget class="QWidget" name="eh53_container" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_6">
          <item>
-          <widget class="QLabel" name="eh53_label">
-           <property name="text">
-            <string>H_5y/H_3y</string>
-           </property>
+          <widget class="QTableWidget" name="second_field_solution_table">
+           <attribute name="horizontalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <attribute name="verticalHeaderStretchLastSection">
+            <bool>true</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string>d'</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Re(H_2y/H_4y)</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Im(H_3y/H5y)</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </column>
           </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="second_field_eh53_value"/>
          </item>
         </layout>
        </widget>
@@ -168,12 +187,12 @@
     </widget>
    </item>
    <item>
-    <widget class="QWidget" name="save_session_button_container" native="true">
+    <widget class="QWidget" name="export_field_calculation_button_container" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout_8">
       <item>
-       <widget class="QPushButton" name="save_field_session_button">
+       <widget class="QPushButton" name="export_field_calculation_button">
         <property name="text">
-         <string>Guardar Campos</string>
+         <string>Exportar Campos Solución</string>
         </property>
        </widget>
       </item>

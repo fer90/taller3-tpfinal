@@ -6,6 +6,8 @@ sys.path.append('../')
 
 from model.calculation_session import CalculationSession
 
+from utils.multiple_values_entry_parameter import MultipleValuesEntryParameter
+
 class CalculationSessionController(object):
 
     def __init__(self, load_from_file = None):
@@ -17,7 +19,9 @@ class CalculationSessionController(object):
 
     def solve_m_parameter(self, na, nbr, nc, d, nz, nbi_min, mode):
 
-        self.calculation_session.calcule_m_parameter(na, nbr, nc, d, nz, nbi_min, mode)
+        # TODO: Hacerlo mas limpio
+        d_range = MultipleValuesEntryParameter("d'", d[0], d[1], d[2])
+        self.calculation_session.calcule_m_parameter(na, nbr, nc, d_range, nz, nbi_min, mode)
 
     # Los parametros de 'm' pudieron haber sido cambiados manualmente 
     # por el usuario, por eso se los pasa nuevamente
@@ -26,10 +30,9 @@ class CalculationSessionController(object):
       self.calculation_session.calcule_solution(m_from, m_to)  
 
     # Metodos para registrar observadores de parametros
-    def register_m_observers(self, from_observer, to_observer):
+    def register_m_observer(self, m_observer):
 
-        self.calculation_session.register_m_from_observer(from_observer)
-        self.calculation_session.register_m_to_observer(to_observer)
+        self.calculation_session.register_m_observer(m_observer)
 
     def register_solution_observer(self, observer):
 

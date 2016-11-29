@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>865</width>
     <height>600</height>
    </rect>
   </property>
@@ -21,7 +21,7 @@
        <enum>QTabWidget::West</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="calculation_window">
        <attribute name="title">
@@ -64,6 +64,13 @@
                <widget class="QPushButton" name="open_saved_calculation_button">
                 <property name="text">
                  <string>Cargar Cálculo Guardado</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="save_calculation_button">
+                <property name="text">
+                 <string>Guardar Cálculo</string>
                 </property>
                </widget>
               </item>
@@ -173,6 +180,13 @@
                <widget class="QPushButton" name="open_saved_field_calculation">
                 <property name="text">
                  <string>Cargar Cálculo de Campo Guardado</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="save_field_calculation_button">
+                <property name="text">
+                 <string>Guardar Cálculo de Campo</string>
                 </property>
                </widget>
               </item>
