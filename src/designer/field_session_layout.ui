@@ -70,6 +70,9 @@
            <property name="gridStyle">
             <enum>Qt::DotLine</enum>
            </property>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>150</number>
+           </attribute>
            <attribute name="horizontalHeaderStretchLastSection">
             <bool>true</bool>
            </attribute>
@@ -87,6 +90,22 @@
            <column>
             <property name="text">
              <string>Re(E_2y/E_4y)</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Im(E_2y/E_4y)</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Re(E_5y/E_3y)</string>
             </property>
             <property name="textAlignment">
              <set>AlignHCenter|AlignVCenter|AlignCenter</set>
@@ -148,8 +167,20 @@
         <layout class="QHBoxLayout" name="horizontalLayout_6">
          <item>
           <widget class="QTableWidget" name="second_field_solution_table">
+           <property name="horizontalScrollMode">
+            <enum>QAbstractItemView::ScrollPerItem</enum>
+           </property>
+           <attribute name="horizontalHeaderDefaultSectionSize">
+            <number>150</number>
+           </attribute>
+           <attribute name="horizontalHeaderMinimumSectionSize">
+            <number>10</number>
+           </attribute>
            <attribute name="horizontalHeaderStretchLastSection">
-            <bool>true</bool>
+            <bool>false</bool>
+           </attribute>
+           <attribute name="verticalHeaderCascadingSectionResizes">
+            <bool>false</bool>
            </attribute>
            <attribute name="verticalHeaderStretchLastSection">
             <bool>true</bool>
@@ -172,7 +203,23 @@
            </column>
            <column>
             <property name="text">
-             <string>Im(H_3y/H5y)</string>
+             <string>Im(H_2y/H_4y)</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Re(H_5y/H_3y)</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>Im(H_5y/H_3y)</string>
             </property>
             <property name="textAlignment">
              <set>AlignHCenter|AlignVCenter|AlignCenter</set>

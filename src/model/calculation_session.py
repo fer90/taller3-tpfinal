@@ -29,12 +29,19 @@ class CalculationSession(object):
         if load_file is not None:
 
             # Cargo el modelo desde un archivo guardado
-            pass
+            self.load_from_file(load_file)
 
         else:
 
             # Cargo un modelo nuevo
             self.initialize_parameters()
+
+    def load_from_file(filename):
+
+        # TODO: Ver que el archivo exista
+        # TODO: Parsear archivo
+        # TODO: Setear parametros
+        self.d = MultipleValuesEntryParameter("d'", 2, 2, 10)
 
     def initialize_parameters(self):
 
