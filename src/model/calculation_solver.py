@@ -18,29 +18,14 @@ class CalculationSolver(object):
 
         super(CalculationSolver, self).__init__()
 
-        self.solution = CalculationSolution()
-
     def solve_m_parameter(self, na, nbr, nc, d, nz, nbi_min, mode):
 
         # Retorna una tupla que representa el rango de m
         # TODO: Llamar script de matlab
         return (3, 10)
 
-    def solve_calculation(self):
+    def solve_calculation(self, d_nz, m_from, m_to):
 
         # TODO: Llamar al script en matlab correspondiente y devolver la lista de tuplas solucion
         # TODO: Recordar el timeout!
-        self.solution.set_solution([(1, 2), (2, 2), (3, 4), (4, 5), (10, 10), (4, 6), (1, 12), (50, 12), (12312312312312, 3), (123, 4)])
-
-    # Metodos para registrar observadores de parametros
-    def register_m_from_observer(self, observer):
-
-        self.m.register_from_observer(observer)
-
-    def register_m_to_observer(self, observer):
-
-        self.m.register_to_observer(observer)
-
-    def register_solution_observer(self, observer):
-
-        self.solution.register(observer)
+        return [(1, 2), (2, 2), (3, 4), (4, 5), (10, 10), (4, 6), (1, 12), (50, 12), (12312312312312, 3), (123, 4)]

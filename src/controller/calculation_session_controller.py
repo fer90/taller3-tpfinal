@@ -25,9 +25,9 @@ class CalculationSessionController(object):
 
     # Los parametros de 'm' pudieron haber sido cambiados manualmente 
     # por el usuario, por eso se los pasa nuevamente
-    def solve_calculation(self, m_from, m_to):
+    def solve_calculation(self, d_m_values):
 
-      self.calculation_session.calcule_solution(m_from, m_to)  
+      self.calculation_session.calcule_solution(d_m_values)
 
     # Metodos para registrar observadores de parametros
     def register_m_observer(self, m_observer):

@@ -28,6 +28,9 @@ class MParameterView(Observer):
 
     def notify(self, event):
 
+        # Limpio la tabla de informacion vieja
+        self.clear_values()
+
         # El evento de notificacion es una lista de listas de 3 elementos con el orden:
         # (d', m_from, m_to)
         for m_calculation in event:
@@ -54,10 +57,15 @@ class MParameterView(Observer):
         values = []
 
         row_count = self.layout_object.rowCount()
-        for row in xrange(0, row_count):
+        for row in range(0, row_count):
             d_item = self.layout_object.item(row, self.d_item_column)
             m_item = self.layout_object.cellWidget(row, self.m_item_column)
-            current_value = set(float(d_item.text()), m_item.getRange()[0], m_item.getRange()[1])
+            current_value = [float(d_item.text()), m_item.getRange()[0], m_item.getRange()[1]]
             values.append(current_value)
 
         return values
+
+    def clear_values(self):
+
+        while (self.layout_object.rowCount() > 0):
+            self.layout_object.removeRow(0);

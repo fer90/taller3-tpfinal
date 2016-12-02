@@ -119,9 +119,8 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
                 self.d_nz_to = self.d_nz_from + 1
 
         except ValueError:
-            # TODO: Mandar algun QDialog diciendo que los valores no son los correctos y retornar
-            print("Error en los params!")
-            pass
+            self.show_dialog_box("Error en los parametros de entrada. Revisar que se haya aprovisionado correctamente!")
+            return
 
         # Checkeo modo de ejecucion
         if self.parallel_mode_button.isChecked():
@@ -137,24 +136,34 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
 
     def solution_calculation(self):
 
-        # Obtengo los parametros de 'm' calculados
+        # Obtengo los parametros de d'/Nz y rango de 'm' calculados
         try:
-            self.d_nz_from = float(self.from_parameter_edit_line.text())
-            #self.m_from_value = int(self.m_from_value_edit_line.text())
-            #self.m_to_value = int(self.m_to_value_edit_line.text())
+            d_m_values = self.m_parameter.get_values()
         except ValueError:
             # TODO: QDialog avisando que hay parametros incorrectos y retornar
             pass
 
-        # Validar parametros de entrada
+        # TODO: Validar parametros de entrada
 
-        # TODO: Llamar al controlador, debe llamar al modelo que llama
-        # al script en matlab
-        # TODO: Se debe devolver una lista de tuplas (pares solución)
-        self.solution.set_name("d'/Nz = " + str(self.d_nz_from))
-        #self.controller.solve_calculation(self.m_from_parameter.get_value(), self.m_to_parameter.get_value())
+        # TODO: Se debe devolver una lista de listas, con d'/Nz como primer
+        # elemento y los demás serán los pares solucion
+        self.controller.solve_calculation(d_m_values)
 
     def export_calculation_session(self):
 
         # TODO: Llamar al controlador para que exporte la solucion si la hubiere
         pass
+
+    def show_dialog_box(self, text):
+
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Critical)
+
+        msg.setText(text)
+        #msg.setInformativeText("This is additional information")
+        msg.setWindowTitle("Error en parámetros de entrada")
+        msg.setDetailedText("Detalles:")
+        msg.setStandardButtons(QMessageBox.Ok)
+        #msg.buttonClicked.connect(msgbtn)
+
+        retval = msg.exec_()

@@ -8,6 +8,7 @@ from enum import Enum
 
 from model.calculation_solver import CalculationSolver
 from model.m_container import MContainer
+from model.solution_container import SolutionContainer
 from utils.entry_parameter import EntryParameter
 from utils.multiple_values_entry_parameter import MultipleValuesEntryParameter
 
@@ -54,6 +55,9 @@ class CalculationSession(object):
         self.m = MContainer()
 
         # Solucion de m y del calculo
+        self.solution = SolutionContainer()
+
+        # Resolvedor de todos los calculos (ifaz hacia matlab)
         self.calculation_solver = CalculationSolver()
 
     def calcule_m_parameter(self, na, nbr, nc, d, nz, nbi_min, mode):
@@ -79,10 +83,30 @@ class CalculationSession(object):
 
         self.m.set_parameters(m_solution)
 
-    def calcule_solution(self, m_from, m_to):
+    def calcule_solution(self, d_m_values):
 
-        # TODO: Ver parametros que se necesitan
-        self.calculation_solver.solve_calculation()
+        final_solution = []
+
+        # TODO: Setear todos los parametros
+
+        for current_calculation in d_m_values:
+
+            current_solution = []
+
+            d_nz = current_calculation[0]
+            m_from = current_calculation[1]
+            m_to = current_calculation[2]
+
+            current_solution.append(d_nz)
+
+            # TODO: Ver si necesita los parametros de entrada
+            pair_solution = self.calculation_solver.solve_calculation(d_nz, m_from, m_to)
+
+            current_solution.append(pair_solution)
+
+            final_solution.append(current_solution)
+
+        self.solution.set_solutions(final_solution)
 
     def save_session(self, filename):
         # TODO: Implementar
@@ -95,4 +119,4 @@ class CalculationSession(object):
 
     def register_solution_observer(self, observer):
 
-        self.calculation_solver.register_solution_observer(observer)
+        self.solution.register(observer)

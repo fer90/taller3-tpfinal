@@ -21,15 +21,29 @@ class CalculationSolutionView(Observer):
 
         self.matplot_creator = MatplotCreator(self.matplot_view)
 
+        self.figure_list = dict()
+
+        self.solution_list_view.itemClicked.connect(self.change_current_figure)
+
     def notify(self, solution_list):
 
-        # El 'evento' es una lista de tuplas a actualizar
-        #for solution in solution_list:
-
-        #    self.solution_list_view.addItem(str(solution))
-        # TODO: Rediseñar para cuando haya multiples soluciones (barrido)
+        # TODO: Refactorizar para permitir el Update de 1 solo grafico (y no borrar y crear todo de vuelta)
+        self.figure_list = dict()
         self.solution_list_view.clear()
-        self.solution_list_view.addItem(self.name)
+        self.matplot_creator.remove_plot()
 
-        # TODO: Update del grafico!
-        self.matplot_creator.create_plot(solution_list)
+        # Me notifican una lista de soluciones
+        # En cada solucion tengo el d' como primer elemento y una lista con 
+        # los pares solucion como segundo elemento
+        for solution in solution_list:
+
+            name = "d'/Nz = " + str(solution[0])
+            self.figure_list[name] = self.matplot_creator.create_figure(solution[1])
+            self.solution_list_view.addItem(name)
+
+        self.solution_list_view.setCurrentRow(0)
+
+    def change_current_figure(self, item_selected):
+
+        text = item_selected.text()
+        self.matplot_creator.create_plot(self.figure_list[text])

@@ -20,16 +20,24 @@ class MatplotCreator(object):
         self.canvas = None
         self.there_is_plot = False
 
-    def create_plot(self, solution_list):
+    def create_figure(self, solution_list):
+
+        # Este metodo me crea un grafico con los pares solucion de la lista parametro
+        figure = Figure()
+        ax1f1 = figure.add_subplot(111)
+        ax1f1.plot(np.random.rand(5))
+
+        return figure
+
+    def create_plot(self, figure):
 
         # Elimino el posible widget inicial
         if self.there_is_plot:
             self.remove_plot()
 
-        # Creo un grafico random
-        figure = Figure()
-        ax1f1 = figure.add_subplot(111)
-        ax1f1.plot(np.random.rand(5))
+        self.add_plot(figure)
+
+    def add_plot(self, figure):
 
         self.canvas = FigureCanvas(figure)
         self.plot_container_layout.addWidget(self.canvas)
@@ -41,7 +49,10 @@ class MatplotCreator(object):
         self.there_is_plot = True
 
     def remove_plot(self):
-        self.plot_container_layout.removeWidget(self.canvas)
-        self.canvas.close()
-        self.plot_container_layout.removeWidget(self.toolbar)
-        self.toolbar.close()
+
+        if self.there_is_plot:
+            self.plot_container_layout.removeWidget(self.canvas)
+            self.canvas.close()
+            self.plot_container_layout.removeWidget(self.toolbar)
+            self.toolbar.close()
+        self.there_is_plot = False
