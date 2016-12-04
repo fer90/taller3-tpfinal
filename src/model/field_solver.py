@@ -11,7 +11,8 @@ class FieldSolver(object):
 
         super(FieldSolver, self).__init__()
 
-    def solve_field(self""", parametros! """):
+    # TODO: Ver parametros
+    def solve_field(self):
 
         # TODO: Llamar al script en matlab correspondiente y devolver la lista solucion
         # Esta lista contiene dos elementos: [[Re, Im], [Re, Im]]

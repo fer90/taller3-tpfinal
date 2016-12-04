@@ -4,7 +4,7 @@ import sys
 
 sys.path.append('../')
 
-from model.calculation_session import 
+from model.calculation_session import CalculationSession
 from model.field_session import FieldSession
 
 #from utils.multiple_values_entry_parameter import MultipleValuesEntryParameter
@@ -21,7 +21,14 @@ class FieldSessionController(object):
     def solve_first_field_parameter(self, calculation_session_name):
 
         calculation_session = CalculationSession(calculation_session_name)
-        self.field_session.calcule_first_fields_magnitude(calculation_session.d"""parameters: calculation_session.get.... """)
+        # TODO: Agregar parametros correspondientes
+        self.field_session.calcule_first_field_magnitude(calculation_session.d)
+
+    def solve_second_field_parameter(self, calculation_session_name):
+
+        calculation_session = CalculationSession(calculation_session_name)
+        # TODO: Agregar parametros correspondientes
+        self.field_session.calcule_second_field_magnitude(calculation_session.d)
 
     # Metodos para registrar observadores de solucion de campos
     def register_first_field_observer(self, first_observer):

@@ -36,7 +36,7 @@ class CalculationSession(object):
             # Cargo un modelo nuevo
             self.initialize_parameters()
 
-    def load_from_file(filename):
+    def load_from_file(self, filename):
 
         # TODO: Ver que el archivo exista
         # TODO: Parsear archivo

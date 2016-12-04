@@ -23,7 +23,7 @@ class FieldSolutionContainer(Subject):
         # Diccionario con key = d', value = [lista de pares solucion]
         self.values = defaultdict(list)
 
-    def set_solutions(self, solution_list):
+    def set_solution(self, solution_list):
 
         # Llega una lista de lista solucion de varios elementos:
         # 1er elemento d', 

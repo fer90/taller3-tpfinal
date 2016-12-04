@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from PyQt4.QtCore import *
+from PyQt4.QtGui import *
+
 import sys
 sys.path.append('../')
 from utils.pattern.observer import Observer
@@ -32,11 +35,10 @@ class FieldSolutionView(Observer):
         # 1er elemento d', 
         # segundo elemento: lista con dos elementos lista: Parte real e imaginaria de los campos solucion
         # [[d', [[1, 2], [3, 4]]]...[...]]
-
         for solution in solution_list:
             self.add_value(solution, self.field_table_view.rowCount())
 
-    def set_value(self, values_list, row_count):
+    def add_value(self, values_list, row_count):
 
         d_item = QTableWidgetItem(str(values_list[0]))
         re_eh_24_item = QTableWidgetItem(str(values_list[1][0][0]))
@@ -45,12 +47,12 @@ class FieldSolutionView(Observer):
         im_eh_53_item = QTableWidgetItem(str(values_list[1][1][1]))
 
         # Agrego la nueva fila a la tabla
-        self.layout_object.insertRow(row_count)
-        self.layout_object.setItem(row_count, self.d_item_column, d_item)
-        self.layout_object.setItem(row_count, self.re_eh_24_item_column, re_eh_24_item)
-        self.layout_object.setItem(row_count, self.im_eh_24_item_column, im_eh_24_item)
-        self.layout_object.setItem(row_count, self.re_eh_53_item_column, re_eh_53_item)
-        self.layout_object.setItem(row_count, self.im_eh_53_item_column, im_eh_53_item)
+        self.field_table_view.insertRow(row_count)
+        self.field_table_view.setItem(row_count, self.d_item_column, d_item)
+        self.field_table_view.setItem(row_count, self.re_eh_24_item_column, re_eh_24_item)
+        self.field_table_view.setItem(row_count, self.im_eh_24_item_column, im_eh_24_item)
+        self.field_table_view.setItem(row_count, self.re_eh_53_item_column, re_eh_53_item)
+        self.field_table_view.setItem(row_count, self.im_eh_53_item_column, im_eh_53_item)
 
     def clear_values(self):
 

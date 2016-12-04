@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from field_solver import FieldSolver
-from field_solution_container import FieldSolutionContainer
+from model.field_solver import FieldSolver
+from model.field_solution_container import FieldSolutionContainer
 #from utils.entry_parameter import EntryParameter
 #from utils.multiple_values_entry_parameter import MultipleValuesEntryParameter
 
@@ -35,7 +35,8 @@ class FieldSession(object):
         # Resolvedor de todos los calculos (ifaz hacia matlab de ser necesario)
         self.field_solver = FieldSolver()
 
-    def calcule_first_field_magnitude(self, d""" moreparameters! """):
+    # TODO: Agregar parametros
+    def calcule_field_magnitude(self, d):
 
         field_solution = []
 
@@ -45,18 +46,25 @@ class FieldSession(object):
 
             current_solution = []
 
-            d_nz = d_value
+            current_solution.append(d_value)
 
-            current_solution.append(d_nz)
+            current_field_solution = self.field_solver.solve_field()
 
-            # TODO: Llamar correctamente al que resuelva el campo
-            field_solution = self.field_solver.solve_field("""parametros""")
+            current_solution.append(current_field_solution)
 
-            current_solution.append(field_solution)
+            field_solution.append(current_solution)
 
-            field_solution.append(current_solution) 
+        return field_solution
 
-        self.first_field_solution.set_solution(field_solution)
+    # TODO: Agregar parametros
+    def calcule_first_field_magnitude(self, d):
+
+        self.first_field_solution.set_solution(self.calcule_field_magnitude(d))
+
+    # TODO: Agregar parametros
+    def calcule_second_field_magnitude(self, d):
+
+        self.second_field_solution.set_solution(self.calcule_field_magnitude(d))
 
     def save_session(self, filename):
         # TODO: Implementar
