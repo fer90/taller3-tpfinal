@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-#from matlab.engine.matlabengine import *
 import matlab.engine
 
 """
@@ -14,6 +13,7 @@ class MatlabInterface(object):
         super(MatlabInterface, self).__init__()
 
         self.future = matlab.engine.start_matlab(async=True)
+        
         self.eng = self.future.result()
 
     def solve_m_range(self):
