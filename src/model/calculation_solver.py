@@ -6,7 +6,7 @@ sys.path.append('../')
 
 from utils.multiple_values_entry_parameter import MultipleValuesEntryParameter
 from model.calculation_solution import CalculationSolution
-from matlab.matlab_interface import MatlabInterface
+from matlab_interface.matlab_interface import MatlabInterface
 
 """
 Esta clase es la encargada de ejecutar los scripts en matlab/octave
