@@ -21,10 +21,11 @@ class SolutionContainer(Subject):
         super(SolutionContainer, self).__init__()
 
         # Diccionario con key = d', value = [lista de pares solucion]
-        self.values = defaultdict(set)
+        self.values = defaultdict(list)
 
     def set_solutions(self, solution_list):
 
+        print(solution_list)
         # Llega una lista de listas de varios elementos:
         # [[d', [(1, 2), (3, 4), ...]]...[...]]
         for current_solution in solution_list:
@@ -33,6 +34,6 @@ class SolutionContainer(Subject):
 
             for current_solution_pair in current_solution[1]:
 
-                self.values[d_key].add(current_solution_pair)
+                self.values[d_key].append(current_solution_pair)
 
         self.notify_observers(solution_list)
