@@ -23,8 +23,9 @@ class MatlabInterface(object):
     def solve_both(self):
 
         ret = self.eng.resonancia(float(1.0), float(1.3), float(1.5), float(2))
-        
-        return ret[0][0:1]
+
+        # La funcion devuelve [[lista de nbi][lista de nz]]
+        return ret[0][1::-1]
 
     def solve_parallel(self):
 
