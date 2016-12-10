@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import logging
 
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
@@ -87,6 +88,9 @@ class MainWindow(QMainWindow, main_window):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
+
+    logging.basicConfig(level=logging.DEBUG)
+
     main_window = MainWindow()
     main_window.showMaximized()
     sys.exit(app.exec_())

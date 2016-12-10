@@ -4,11 +4,10 @@ import sys
 
 sys.path.append('../')
 
-from enum import Enum
-
 from model.calculation_solver import CalculationSolver
 from model.m_container import MContainer
 from model.solution_container import SolutionContainer
+from model.calculation_mode import CalculationMode
 from utils.entry_parameter import EntryParameter
 from utils.multiple_values_entry_parameter import MultipleValuesEntryParameter
 
@@ -17,10 +16,6 @@ Esta clase representa el modelo de una sesion de calculo.
 Se encarga de mantener los datos de una sesion, como asi tambien de ejecutar 
 el calculo de la solucion y actualizar la vista con ello (patron Observer)
 """
-
-class CalculationMode(Enum):
-    Parallel = 1
-    Perpendicular = 2
 
 class CalculationSession(object):
 
@@ -80,9 +75,9 @@ class CalculationSession(object):
 
             current_m_solution.append(d_value)
 
-            m_range = self.calculation_solver.solve_m_parameter(na, nbr, nc, d, nz, nbi_min, mode)
+            m_range = self.calculation_solver.solve_m_parameter(na, nbr, nc, d_value, nz, nbi_min, mode)
 
-            # TODO: Encapsular rango de m en una clase
+            # FIXME: Encapsular rango de m en una clase
             current_m_solution.append(m_range[0])
             current_m_solution.append(m_range[1])
 

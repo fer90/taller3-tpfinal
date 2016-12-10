@@ -130,8 +130,6 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
 
         # Validar parametros de entrada
 
-        # TODO: Pasarle al controlador los parametros correctos
-        # TODO: Utilizar timeout
         self.controller.solve_m_parameter(self.na, self.nbr, self.nc, (self.d_nz_from, self.d_nz_step, self.d_nz_to), self.d_nz_from, self.nbi_min, self.calculation_mode)
 
     def solution_calculation(self):
