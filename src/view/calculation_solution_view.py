@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import logging
 import sys
 sys.path.append('../')
 from utils.pattern.observer import Observer
@@ -25,12 +26,16 @@ class CalculationSolutionView(Observer):
 
         self.solution_list_view.itemClicked.connect(self.change_current_figure)
 
+        self.solution_list = None
+
     def notify(self, solution_list):
 
         # TODO: Refactorizar para permitir el Update de 1 solo grafico (y no borrar y crear todo de vuelta)
         self.figure_list = dict()
         self.solution_list_view.clear()
         self.matplot_creator.remove_plot()
+
+        self.solution_list = solution_list
 
         # Me notifican una lista de soluciones
         # En cada solucion tengo el d' como primer elemento y una lista con 
@@ -47,3 +52,23 @@ class CalculationSolutionView(Observer):
 
         text = item_selected.text()
         self.matplot_creator.create_plot(self.figure_list[text])
+
+    def has_solution(self):
+
+        return self.solution_list is not None
+
+    def dump_solution(self, file_handler):
+
+        logging.info("Exportando solución...")
+        logging.debug("La solucion a exportar es: " + str(self.solution_list))
+
+        # Imprimo linea a linea en formato d'; nz; nbi
+        for solution_d in self.solution_list:
+            for i in range(len(solution_d[1][0])):
+
+                line = str(solution_d[0]) + ";"
+                line += str(solution_d[1][0][i]) + ";" + str(solution_d[1][1][i]) + "\n"
+
+                logging.debug("Printing: '" + line + "'")
+
+                file_handler.write(line)

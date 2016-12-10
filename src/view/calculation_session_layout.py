@@ -4,7 +4,8 @@ from PyQt4 import uic
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-import sys
+import logging
+import os, sys
 sys.path.append('../')
 
 from model.calculation_session import CalculationMode
@@ -119,7 +120,7 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
                 self.d_nz_to = self.d_nz_from + 1
 
         except ValueError:
-            self.show_dialog_box("Error en los parametros de entrada", "Error en los parametros de entrada. Revisar que se haya aprovisionado correctamente!")
+            self.show_dialog_box(QMessageBox.Critical, "Error en los parametros de entrada", "Error en los parametros de entrada. Revisar que se haya aprovisionado correctamente!")
             return
 
         # Checkeo modo de ejecucion
@@ -148,13 +149,30 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
 
     def export_calculation_session(self):
 
-        # TODO: Llamar al controlador para que exporte la solucion si la hubiere
-        pass
+        # TODO: Pop-up para consultar por el nombre del archivo
+        filename = QFileDialog.getSaveFileName(self, "Save file", "", ".txt")
+        filename += ".txt"
 
-    def show_dialog_box(self, title, text, detailed_text = None, additional_information = None):
+        logging.debug("Saving in file: " + str(filename))
+        logging.debug("Opening file '" + str(filename) + "'")
+
+        file_handler = open(filename, 'w')
+
+        try:
+            if self.solution.has_solution():
+                self.solution.dump_solution(file_handler)
+        except Exception as e:
+            logging.error("Error al exportar datos: " + str(e))
+            os.unlink(file_handler.name)
+            self.show_dialog_box(QMessageBox.Critical, "Error exportando datos", "Se ha producido un error al exportar los resultados del cálculo", str(e))
+        else:
+            file_handler.close()
+            self.show_dialog_box(QMessageBox.Information, "Exportar datos", "Se han exportado los resultados satisfactoriamente")
+
+    def show_dialog_box(self, icon, title, text, detailed_text = None, additional_information = None):
 
         msg = QMessageBox()
-        msg.setIcon(QMessageBox.Critical)
+        msg.setIcon(icon)
 
         msg.setText(text)
         if additional_information is not None:
