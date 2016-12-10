@@ -119,7 +119,7 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
                 self.d_nz_to = self.d_nz_from + 1
 
         except ValueError:
-            self.show_dialog_box("Error en los parametros de entrada. Revisar que se haya aprovisionado correctamente!")
+            self.show_dialog_box("Error en los parametros de entrada", "Error en los parametros de entrada. Revisar que se haya aprovisionado correctamente!")
             return
 
         # Checkeo modo de ejecucion
@@ -144,22 +144,24 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
         # TODO: Validar parametros de entrada
 
         # Llamo al controlador para ejecutar el calculo
-        self.controller.solve_calculation(self.na, self.nbr, self.nc, d_m_values)
+        self.controller.solve_calculation(self.na, self.nbr, self.nc, d_m_values, self.calculation_mode)
 
     def export_calculation_session(self):
 
         # TODO: Llamar al controlador para que exporte la solucion si la hubiere
         pass
 
-    def show_dialog_box(self, text):
+    def show_dialog_box(self, title, text, detailed_text = None, additional_information = None):
 
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Critical)
 
         msg.setText(text)
-        #msg.setInformativeText("This is additional information")
-        msg.setWindowTitle("Error en parámetros de entrada")
-        msg.setDetailedText("Detalles:")
+        if additional_information is not None:
+            msg.setInformativeText(additional_information)
+        msg.setWindowTitle(title)
+        if detailed_text is not None:
+            msg.setDetailedText("Detalles: " + detailed_text)
         msg.setStandardButtons(QMessageBox.Ok)
         #msg.buttonClicked.connect(msgbtn)
 
