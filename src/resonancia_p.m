@@ -1,13 +1,10 @@
-%% res_p son celdas donde cada posición tiene una matriz con 3 filas:
+%% res_p es una celda donde cada posición tiene una matriz con 3 filas:
  % nbi, nz, m, y con tantas columnas como soluciones.
- % ds es la lista de valores para barrer d' (x ej, para barrer d' desde 1 hasta 100, con pasos de a 5: ds = 1:5:100
- % También ds puede ser un sólo valor, x ej: ds = 1000)
 function [res_p] = resonancia_p(na, nbr, nc, d)
 tic		% inicia cronómetro para contabilizar el tiempo total de ejecución
     nz_0 = 0;							% nz mínimo
     nz_1 = min([na, nbr, nc]);			% nz máximo
     res_p = cell(1,1);			% crea celdas para los resultados del modo p
-
     res_p{1} = resonancia_modo_p(na, nbr, nc, nz_0, nz_1, d);	% resuelve las resonancias para modo p con d fijo y lo guarda en la celda correspondiente
 toc		% imprime el tiempo total de ejecución
 end
