@@ -27,7 +27,7 @@ class MatplotCreator(object):
         ax1f1 = figure.add_subplot(111)
         print(solution_list[0])
         print(solution_list[1])
-        ax1f1.plot(solution_list[0], solution_list[1])
+        ax1f1.plot(solution_list[0], solution_list[1], "ob", solution_list[0], solution_list[1])
 
         return figure
 

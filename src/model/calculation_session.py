@@ -90,11 +90,9 @@ class CalculationSession(object):
 
         self.m.set_parameters(m_solution)
 
-    def calcule_solution(self, d_m_values):
+    def calcule_solution(self, na, nbr, nc, d_m_values):
 
         final_solution = []
-
-        # TODO: Setear todos los parametros
 
         for current_calculation in d_m_values:
 
@@ -106,8 +104,7 @@ class CalculationSession(object):
 
             current_solution.append(d_nz)
 
-            # TODO: Ver si necesita los parametros de entrada
-            pair_solution = self.calculation_solver.solve_calculation(d_nz, m_from, m_to)
+            pair_solution = self.calculation_solver.solve_calculation(na, nbr, nc, d_nz)
 
             current_solution.append(pair_solution)
 

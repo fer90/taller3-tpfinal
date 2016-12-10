@@ -20,19 +20,25 @@ class MatlabInterface(object):
 
         pass
 
-    def solve_both(self):
+    def solve_both(self, na, nbr, nc, d):
 
-        ret = self.eng.resonancia(float(1.0), float(1.3), float(1.5), float(2))
+        ret = self.eng.resonancia(float(na), float(nbr), float(nc), float(d))
 
         # La funcion devuelve [[lista de nbi][lista de nz]]
         return ret[0][1::-1]
 
-    def solve_parallel(self):
+    def solve_parallel(self, na, nbr, nc, d):
 
+        # ret = self.eng.resonancia_paralelo(float(na), float(nbr), float(nc), float(d))
+
+        # return ret[0][1::-1]
         pass
 
-    def solve_perpendicular(self):
+    def solve_perpendicular(self, na, nbr, nc, d):
 
+        # ret = self.eng.resonancia_paralelo(float(na), float(nbr), float(nc), float(d))
+
+        # return ret[0][1::-1]
         pass
 
 #interface = MatlabInterface()

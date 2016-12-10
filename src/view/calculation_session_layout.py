@@ -145,9 +145,8 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
 
         # TODO: Validar parametros de entrada
 
-        # TODO: Se debe devolver una lista de listas, con d'/Nz como primer
-        # elemento y los demás serán los pares solucion
-        self.controller.solve_calculation(d_m_values)
+        # Llamo al controlador para ejecutar el calculo
+        self.controller.solve_calculation(self.na, self.nbr, self.nc, d_m_values)
 
     def export_calculation_session(self):
 

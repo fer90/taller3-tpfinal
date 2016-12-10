@@ -27,9 +27,7 @@ class CalculationSolver(object):
         # TODO: Llamar script de matlab
         return (3, 10)
 
-    def solve_calculation(self, d_nz, m_from, m_to):
+    def solve_calculation(self, na, nbr, nc, d_nz):
 
-        # TODO: Llamar al script en matlab correspondiente y devolver la lista de tuplas solucion
         # TODO: Recordar el timeout!
-        return self.matlab_interface.solve_both()
-        #return [(1, 2), (2, 2), (3, 4), (4, 5), (10, 10), (4, 6), (1, 12), (50, 12), (12312312312312, 3), (123, 4)]
+        return self.matlab_interface.solve_both(na, nbr, nc, d_nz)
