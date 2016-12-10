@@ -85,7 +85,7 @@ class CalculationSession(object):
 
         self.m.set_parameters(m_solution)
 
-    def calcule_solution(self, na, nbr, nc, d_m_values):
+    def calcule_solution(self, na, nbr, nc, d_m_values, calculation_mode):
 
         final_solution = []
 
@@ -99,7 +99,7 @@ class CalculationSession(object):
 
             current_solution.append(d_nz)
 
-            pair_solution = self.calculation_solver.solve_calculation(na, nbr, nc, d_nz)
+            pair_solution = self.calculation_solver.solve_calculation(na, nbr, nc, d_nz, m_from, m_to, calculation_mode)
 
             current_solution.append(pair_solution)
 

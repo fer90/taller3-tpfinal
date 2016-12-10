@@ -30,7 +30,10 @@ class CalculationSolver(object):
         else:
             return self.matlab_interface.solve_m_perpendicular(na, nbr, nc, d) 
 
-    def solve_calculation(self, na, nbr, nc, d_nz):
+    def solve_calculation(self, na, nbr, nc, d_nz, m_from, m_to, mode):
 
         # TODO: Recordar el timeout!
-        return self.matlab_interface.solve_both(na, nbr, nc, d_nz)
+        if mode == CalculationMode.Parallel:
+            return self.matlab_interface.solve_parallel(na, nbr, nc, d_nz, m_from, m_to)
+        else:
+            return self.matlab_interface.solve_perpendicular(na, nbr, nc, d_nz, m_from, m_to)

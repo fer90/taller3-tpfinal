@@ -10,8 +10,8 @@ function [m_0, m_1] = m_range_s(na, nbr, nc, d)
     m_0 = fzero(@(m) eq2s(na, nbr, nbi_0, nc, nz_0, m, d), 0);	% halla m_0 como solución de f2 = 0 usando nz = nz_0 y nbi = nbi_0
     m_1 = fzero(@(m) eq2s(na, nbr, nbi_1, nc, nz_1, m, d), 0);	% halla m_1 como solución de f2 = 0 usando nz = nz_1 y nbi = nbi_1
     
-    m_0 = int8(ceil(m_0));	% construye la lista
-    m_1 = int8(floor(m_1));	% de números enteros
+    m_0 = int32(ceil(m_0));	% construye la lista
+    m_1 = int32(floor(m_1));	% de números enteros
 
 end
 

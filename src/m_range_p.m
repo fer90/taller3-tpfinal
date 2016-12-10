@@ -10,8 +10,8 @@ function [m_0, m_1] = m_range_p(na, nbr, nc, d)
     m_0 = fzero(@(m) eq2p(na, nbr, nbi_0, nc, nz_0, m, d), 0);
     m_1 = fzero(@(m) eq2p(na, nbr, nbi_1, nc, nz_1, m, d), 0);
     
-    m_0 = int8(ceil(m_0));
-    m_1 = int8(floor(m_1));
+    m_0 = int32(ceil(m_0));
+    m_1 = int32(floor(m_1));
 
 end
 
