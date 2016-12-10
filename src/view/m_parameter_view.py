@@ -42,7 +42,7 @@ class MParameterView(Observer):
         m_item = QRangeSlider()
         from_value = values_list[1]
         to_value = values_list[2]
-        m_item.setMin(max(0, from_value - 10))
+        m_item.setMin(from_value - 10)
         m_item.setMax(to_value + 10)
         m_item.setRange(from_value, to_value)
 
