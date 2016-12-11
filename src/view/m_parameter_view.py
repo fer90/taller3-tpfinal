@@ -4,6 +4,7 @@ from qrangeslider import QRangeSlider
 
 from PyQt4.QtGui import QTableWidgetItem
 
+import logging
 import sys
 sys.path.append('../')
 from utils.pattern.observer import Observer
@@ -26,15 +27,19 @@ class MParameterView(Observer):
         self.d_item_column = 0
         self.m_item_column = 1
 
-    def notify(self, event):
+        self.solution = None
+
+    def notify(self, solution):
 
         # Limpio la tabla de informacion vieja
         self.clear_values()
 
         # El evento de notificacion es una lista de listas de 3 elementos con el orden:
         # (d', m_from, m_to)
-        for m_calculation in event:
+        for m_calculation in solution:
             self.set_value(m_calculation, self.layout_object.rowCount())
+
+        self.solution = solution
 
     def set_value(self, values_list, row_count):
 
@@ -69,3 +74,18 @@ class MParameterView(Observer):
 
         while (self.layout_object.rowCount() > 0):
             self.layout_object.removeRow(0);
+
+    def has_solution(self):
+
+        return self.solution is not None
+
+    def dump_solution(self, file_handler):
+
+        logging.info("Dumpeando soluciones de parametro 'm'...")
+        logging.debug("La solucion a dumpear es: " + str(self.solution))
+
+        # Imprimo linea a linea en formato d'; m_from; m_to
+        for m_calculation in self.solution:
+
+            line = str(m_calculation[0]) + ";" + str(m_calculation[1]) + ";" + str(m_calculation[2]) + "\n"
+            file_handler.write(line)

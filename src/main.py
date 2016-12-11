@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-import sys
+import os, sys
 import logging
 
 from PyQt4.QtCore import *
@@ -11,6 +11,9 @@ from PyQt4 import uic
 from view.calculation_session_layout import CalculationSessionLayout
 from view.field_session_layout import FieldSessionLayout
 from view.comparation_session_layout import ComparationSessionLayout
+
+from utils.dialog_box import DialogBox
+from utils.input_dialog_box import InputDialogBox
 
 # Cargo mi diseño de aplicacion principal
 main_window = uic.loadUiType("designer/main_application.ui")[0]
@@ -56,7 +59,24 @@ class MainWindow(QMainWindow, main_window):
 
     def save_current_calculation_session(self):
 
-        pass
+        filename = InputDialogBox.show_input_dialog_box(self, "Guardar sesión de cálculo", "Ingrese el nombre de la sesión de cálculo: ")
+
+        logging.debug("Se guardará la sesión de cálculo en el archivo: " + str(filename))
+
+        # TODO: Deshardcodear
+        file_handler = open(os.getcwd() + "/save_sessions/calculation/" + filename, 'w')
+        
+        current_session = self.calculation_session_container.currentWidget()
+
+        if current_session.save_calculation_session(file_handler):
+            logging.error("Sesión guardada con éxito!")
+            # TODO: Modificar titulo del tab!
+            file_handler.close()
+            DialogBox.show_dialog_box(QMessageBox.Information, "Guardar sesión", "Se ha guardado la sesión satisfactoriamente")
+        else:
+            logging.error("La sesión no ha podido guardarse!")
+            os.unlink(file_handler.name)
+            DialogBox.show_dialog_box(QMessageBox.Critical, "Guardar sesión", "No se ha podido guardar la sesión")
 
     def delete_current_calculation_session(self):
 

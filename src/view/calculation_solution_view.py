@@ -59,8 +59,8 @@ class CalculationSolutionView(Observer):
 
     def dump_solution(self, file_handler):
 
-        logging.info("Exportando solución...")
-        logging.debug("La solucion a exportar es: " + str(self.solution_list))
+        logging.info("Dumpeando solución...")
+        logging.debug("La solucion a dumpear es: " + str(self.solution_list))
 
         # Imprimo linea a linea en formato d'; nz; nbi
         for solution_d in self.solution_list:

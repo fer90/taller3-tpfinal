@@ -13,6 +13,9 @@ from controller.calculation_session_controller import CalculationSessionControll
 from view.calculation_solution_view import CalculationSolutionView
 from view.m_parameter_view import MParameterView
 
+from utils.dialog_box import DialogBox
+from utils.file_dialog_box import FileDialogBox
+
 # Cargo mi diseño de sesion de calculo de solucion
 calculation_session_design = uic.loadUiType("designer/calculation_session_layout.ui")[0]
 
@@ -120,7 +123,7 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
                 self.d_nz_to = self.d_nz_from + 1
 
         except ValueError:
-            self.show_dialog_box(QMessageBox.Critical, "Error en los parametros de entrada", "Error en los parametros de entrada. Revisar que se haya aprovisionado correctamente!")
+            DialogBox.show_dialog_box(QMessageBox.Critical, "Error en los parametros de entrada", "Error en los parametros de entrada. Revisar que se haya aprovisionado correctamente!")
             return
 
         # Checkeo modo de ejecucion
@@ -147,40 +150,96 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
         # Llamo al controlador para ejecutar el calculo
         self.controller.solve_calculation(self.na, self.nbr, self.nc, d_m_values, self.calculation_mode)
 
-    def export_calculation_session(self):
+    def save_calculation_session(self, file_handler):
 
-        # TODO: Pop-up para consultar por el nombre del archivo
-        filename = QFileDialog.getSaveFileName(self, "Save file", "", ".txt")
-        filename += ".txt"
+        logging.debug("Se guarda la sesión de cálculo en el archivo " + str(file_handler.name))
 
-        logging.debug("Saving in file: " + str(filename))
-        logging.debug("Opening file '" + str(filename) + "'")
-
-        file_handler = open(filename, 'w')
-
+        """
+        Formato:
+        na;nbr;nc;nbimin
+        [d/nz]_from;[d/nz]_step;[d/nz]_to;mode
+        d/nz;m_from;m_to
+        ...
+        [d/nz];x1;y1
+        ...
+        """
+        line = ""
         try:
+            self.na = float(self.na_edit_line.text())
+            self.nbr = float(self.nbr_edit_line.text())
+            self.nc = float(self.nc_edit_line.text())
+
+            line = str(self.na) + ";" + str(self.nbr) + ";" + str(self.nc)
+
+            if self.nz_calculation:
+                self.nbi_min = float(self.nbi_min_edit_line.text())
+                line += ";" + str(self.nbi_min)
+
+            line += "\n"
+            file_handler.write(line)
+            line = ""
+
+            self.d_nz_from = int(self.from_parameter_edit_line.text())
+
+            line = self.d_nz_from
+
+            if self.multiple_values_check_box.isChecked():
+
+                self.d_nz_step = int(self.step_parameter_edit_line.text())
+                self.d_nz_to = int(self.to_parameter_edit_line.text())
+
+            else:
+
+                self.d_nz_step = 1
+                self.d_nz_to = self.d_nz_from + 1
+
+            line = str(self.d_nz_from) + ";" + str(self.d_nz_step) + ";" + str(self.d_nz_to) + ";"
+
+            if self.parallel_mode_button.isChecked():
+                self.calculation_mode = CalculationMode.Parallel
+            else:
+                self.calculation_mode = CalculationMode.Perpendicular
+
+            line += str(self.calculation_mode.value) + "\n"
+            file_handler.write(line)
+            line = ""
+
+            if self.m_parameter.has_solution():
+                self.m_parameter.dump_solution(file_handler)
             if self.solution.has_solution():
                 self.solution.dump_solution(file_handler)
-        except Exception as e:
-            logging.error("Error al exportar datos: " + str(e))
-            os.unlink(file_handler.name)
-            self.show_dialog_box(QMessageBox.Critical, "Error exportando datos", "Se ha producido un error al exportar los resultados del cálculo", str(e))
+        except ValueError:
+            logging.warning("No se ha guardado la sesión por problemas en los parámetros de entrada")
+            return False
+
+        return True
+
+    def export_calculation_session(self):
+
+        logging.info("Exportando datos...")
+
+        if self.solution.has_solution():
+
+            # Llamo al pop-up para que el usuario designe el lugar donde se guarda el archivo
+            filename = FileDialogBox.show_save_file_dialog_box(self)
+            filename += ".txt"
+
+            logging.debug("Saving in file: " + str(filename))
+            logging.debug("Opening file '" + str(filename) + "'")
+
+            file_handler = open(filename, 'w')
+
+            try:
+                self.solution.dump_solution(file_handler)
+            except Exception as e:
+                logging.error("Error al exportar datos: " + str(e))
+                os.unlink(file_handler.name)
+                DialogBox.show_dialog_box(QMessageBox.Critical, "Error exportando datos", "Se ha producido un error al exportar los resultados del cálculo", str(e))
+            else:
+                file_handler.close()
+                logging.info("Datos exportados")
+                DialogBox.show_dialog_box(QMessageBox.Information, "Exportar datos", "Se han exportado los resultados satisfactoriamente")
+
         else:
-            file_handler.close()
-            self.show_dialog_box(QMessageBox.Information, "Exportar datos", "Se han exportado los resultados satisfactoriamente")
-
-    def show_dialog_box(self, icon, title, text, detailed_text = None, additional_information = None):
-
-        msg = QMessageBox()
-        msg.setIcon(icon)
-
-        msg.setText(text)
-        if additional_information is not None:
-            msg.setInformativeText(additional_information)
-        msg.setWindowTitle(title)
-        if detailed_text is not None:
-            msg.setDetailedText("Detalles: " + detailed_text)
-        msg.setStandardButtons(QMessageBox.Ok)
-        #msg.buttonClicked.connect(msgbtn)
-
-        retval = msg.exec_()
+            logging.debug("No hay datos para exportar")
+            DialogBox.show_dialog_box(QMessageBox.Information, "Exportar Datos", "No hay datos para exportar!")
