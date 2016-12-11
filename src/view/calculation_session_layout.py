@@ -21,18 +21,50 @@ calculation_session_design = uic.loadUiType("designer/calculation_session_layout
 
 class CalculationSessionLayout(QWidget, calculation_session_design):
 
-    def __init__(self, identificator):
+    def __init__(self, filename = None):
 
         QWidget.__init__(self, None)
 
         self.setupUi(self)
 
-        self.identificator = identificator
         self.controller = CalculationSessionController()
 
-        self.initialize_view_objects()
+        if filename is None:
+            self.initialize_view_objects()
+        else:
+            self.initialize_view_objects_from_file(filename)
         self.initialize_view_connections()
         self.initialize_view_observers()
+
+    def initialize_view_objects_from_file(self, filename):
+
+        """
+        Formato:
+        na;nbr;nc;nbimin
+        [d/nz]_from;[d/nz]_step;[d/nz]_to;mode
+        d/nz;m_from;m_to
+        ...
+        [d/nz];x1;y1
+        ...
+        """
+
+        with open(filename, 'r') as file_handler:
+
+            line = file_handler.readline().rstrip('\n')
+            input_parameters = line.split(";")
+            self.na = float(input_parameters[0])
+            self.nbr = float(input_parameters[1])
+            self.nc = float(input_parameters[2])
+            if len(input_parameters) == 4:
+                self.nbi_min = input_parameters[3]
+
+            line = file_handler.readline().rstrip('\n')
+            d_nz_parameters = line.split(";")
+            self.d_nz_from = float(d_nz_parameters[0])
+            self.d_nz_step = float(d_nz_parameters[1])
+            self.d_nz_to = float(d_nz_parameters[2])
+            self.calculation_mode = CalculationMode(int(d_nz_parameters[3])
+
 
     def initialize_view_objects(self):
 

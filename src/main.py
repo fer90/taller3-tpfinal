@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os, sys
+from os import walk
 import logging
 
 from PyQt4.QtCore import *
@@ -55,15 +56,34 @@ class MainWindow(QMainWindow, main_window):
 
     def open_saved_calculation_session(self):
 
-        pass
+        # Obtengo todos los archivos guardados
+        files = []
+        # TODO: Deshardcodear directorio de sesiones guardadas
+        for (dirpath, dirnames, filenames) in walk(os.getcwd() + "/save_sessions/calculation/"):
+            files.extend(filenames)
+            break
+        logging.debug("Los archivos guardados hallados son: " + str(files))
+        
+        # Muestro un pop-up con una lista de archivos guardados
+        session_name = InputDialogBox.show_item_input_dialog_box(self, "Sesiones guardadas", "Elija una de las sesiones guardadas:", files)
+
+        if session_name is not None:
+
+            # Construyo el nombre completo del archivo
+            filename = os.getcwd() + "/save_sessions/calculation/" + session_name
+
+            # Obtengo el elegido por el user y agrego un Tab con una nueva session layout
+            calculation_layout = CalculationSessionLayout(filename)
+            last_index = self.calculation_session_container.addTab(self.calculation_session_layout, session_name)
+            self.calculation_session_container.setCurrentIndex(last_index)
 
     def save_current_calculation_session(self):
 
-        filename = InputDialogBox.show_input_dialog_box(self, "Guardar sesión de cálculo", "Ingrese el nombre de la sesión de cálculo: ")
+        filename = InputDialogBox.show_text_input_dialog_box(self, "Guardar sesión de cálculo", "Ingrese el nombre de la sesión de cálculo: ")
 
         logging.debug("Se guardará la sesión de cálculo en el archivo: " + str(filename))
 
-        # TODO: Deshardcodear
+        # TODO: Deshardcodear directorio de sesiones guardadas
         file_handler = open(os.getcwd() + "/save_sessions/calculation/" + filename, 'w')
         
         current_session = self.calculation_session_container.currentWidget()

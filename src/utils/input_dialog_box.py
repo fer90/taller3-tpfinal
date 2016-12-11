@@ -10,9 +10,19 @@ con una entry para llenar
 class InputDialogBox(object):
 
     @staticmethod
-    def show_input_dialog_box(parent, title, text):
+    def show_text_input_dialog_box(parent, title, text):
 
         entry, ok = QInputDialog.getText(parent, title, text)
+
+        if ok:
+            return entry
+        else:
+            return None
+
+    @staticmethod
+    def show_item_input_dialog_box(parent, title, text, items):
+
+        entry, ok = QInputDialog.getItem(parent, title, text, items, 0, False)
 
         if ok:
             return entry
