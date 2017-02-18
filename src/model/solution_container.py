@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from collections import defaultdict
-
-import sys
-
-sys.path.append('../')
-
-from utils.pattern.observer import Subject
+from model.value_container import ValueContainer
 
 """
 Esta clase contiene el valor de todas las soluciones de la sesion, 
@@ -14,14 +8,11 @@ diferenciadas cada una por el d' al que pertenecen (una sesion puede
 tener un rango de d')
 """
 
-class SolutionContainer(Subject):
+class SolutionContainer(ValueContainer):
 
     def __init__(self):
 
         super(SolutionContainer, self).__init__()
-
-        # Diccionario con key = d', value = [lista de pares solucion]
-        self.values = defaultdict(list)
 
     def set_solutions(self, solution_list):
 

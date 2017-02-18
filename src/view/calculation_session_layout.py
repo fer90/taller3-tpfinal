@@ -21,7 +21,7 @@ calculation_session_design = uic.loadUiType("designer/calculation_session_layout
 
 class CalculationSessionLayout(QWidget, calculation_session_design):
 
-    def __init__(self, filename = None):
+    def __init__(self, calculation_id, filename = None):
 
         QWidget.__init__(self, None)
 
@@ -63,7 +63,43 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
             self.d_nz_from = float(d_nz_parameters[0])
             self.d_nz_step = float(d_nz_parameters[1])
             self.d_nz_to = float(d_nz_parameters[2])
-            self.calculation_mode = CalculationMode(int(d_nz_parameters[3])
+            self.calculation_mode = CalculationMode(int(d_nz_parameters[3]))
+
+            m_values_list = []
+            self.m_parameter = MParameterView("m_parameter_table", self.m_value_table)
+            for line in file_handler:
+                if line == "-----\n":
+                    break
+                separated_line = line.split(';')
+                m_values_list.append([float(separated_line[0]), int(separated_line[1]), int(separated_line[2])])
+            if len(m_values_list) > 0:
+                self.m_parameter.notify(m_values_list)
+
+            solution_list = []
+            self.solution = CalculationSolutionView("solution", self.solution_values_list, self.matplot_container)
+            current_d_nz = -1
+            current_solution = []
+
+            for line in file_handler:
+                logging.debug("La siguiente linea es: " + line)
+                separated_line = line.split(';')
+                new_d_nz = float(separated_line[0])
+
+                if new_d_nz != current_d_nz:
+                    if current_solution:
+                        solution_list.append([current_d_nz, [[solution[0] for solution in current_solution], [solution[1] for solution in current_solution]]])
+                    current_solution = []
+                    current_d_nz = new_d_nz
+
+                current_solution.append([float(separated_line[1]), float(separated_line[2])])
+
+            # Agrego el ultimo d/nz
+            if current_solution:
+                solution_list.append([current_d_nz, [[solution[0] for solution in current_solution], [solution[1] for solution in current_solution]]])
+
+            if solution_list:
+                logging.debug("La lista de soluciones cargadas es: " + str(solution_list))
+                self.solution.notify(solution_list)
 
 
     def initialize_view_objects(self):
@@ -238,6 +274,7 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
 
             if self.m_parameter.has_solution():
                 self.m_parameter.dump_solution(file_handler)
+            file_handler.write("-----\n")
             if self.solution.has_solution():
                 self.solution.dump_solution(file_handler)
         except ValueError:

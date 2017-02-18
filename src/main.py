@@ -73,9 +73,10 @@ class MainWindow(QMainWindow, main_window):
             filename = os.getcwd() + "/save_sessions/calculation/" + session_name
 
             # Obtengo el elegido por el user y agrego un Tab con una nueva session layout
-            calculation_layout = CalculationSessionLayout(filename)
+            self.calculation_session_layout = CalculationSessionLayout(self.calculation_id, filename)
             last_index = self.calculation_session_container.addTab(self.calculation_session_layout, session_name)
             self.calculation_session_container.setCurrentIndex(last_index)
+            self.calculation_id += 1
 
     def save_current_calculation_session(self):
 

@@ -83,7 +83,7 @@ class CalculationSession(object):
 
             m_solution.append(current_m_solution)
 
-        self.m.set_parameters(m_solution)
+        self.m.set_solutions(m_solution)
 
     def calcule_solution(self, na, nbr, nc, d_m_values, calculation_mode):
 
