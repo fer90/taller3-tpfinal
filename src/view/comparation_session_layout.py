@@ -11,15 +11,16 @@ Esta clase representa la pantalla de Comparaciones
 
 class ComparationSessionLayout(object):
 
-    def __init__(self, matplot_container, saved_calculations_list_view, saved_calculations_info_view):
+    def __init__(self, matplot_container, toolbar_container, saved_calculations_list_view, saved_calculations_info_view):
 
         super(ComparationSessionLayout, self).__init__()
 
         self.matplot_containter = matplot_container
+        self.toolbar_container = toolbar_container
         self.saved_calculations_list_view = saved_calculations_list_view
         self.saved_calculations_info_view = saved_calculations_info_view
 
-        self.matplot_creator = MatplotCreator(self.matplot_containter)
+        self.matplot_creator = MatplotCreator(self.matplot_containter, self.toolbar_container)
 
         self.initialize_saved_sessions()
 

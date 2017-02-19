@@ -12,10 +12,12 @@ interfaz grafica, utilizando la matplotlib
 
 class MatplotCreator(object):
 
-    def __init__(self, plot_view_container):
+    def __init__(self, plot_view_container, toolbar_view_container):
 
         self.plot_container = plot_view_container
         self.plot_container_layout = self.plot_container.layout()
+        self.toolbar_container = toolbar_view_container
+        self.toolbar_container_layout = self.toolbar_container.layout() 
 
         self.canvas = None
         self.there_is_plot = False
@@ -44,8 +46,8 @@ class MatplotCreator(object):
         self.plot_container_layout.addWidget(self.canvas)
         self.canvas.draw()
 
-        self.toolbar = NavigationToolbar(self.canvas, self.plot_container, coordinates=True)
-        self.plot_container_layout.addWidget(self.toolbar)
+        self.toolbar = NavigationToolbar(self.canvas, self.toolbar_container, coordinates=True)
+        self.toolbar_container_layout.addWidget(self.toolbar)
 
         self.there_is_plot = True
 
@@ -54,6 +56,6 @@ class MatplotCreator(object):
         if self.there_is_plot:
             self.plot_container_layout.removeWidget(self.canvas)
             self.canvas.close()
-            self.plot_container_layout.removeWidget(self.toolbar)
+            self.toolbar_container_layout.removeWidget(self.toolbar)
             self.toolbar.close()
         self.there_is_plot = False

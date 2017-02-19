@@ -76,7 +76,7 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
                 self.m_parameter.notify(m_values_list)
 
             solution_list = []
-            self.solution = CalculationSolutionView("solution", self.solution_values_list, self.matplot_container)
+            self.solution = CalculationSolutionView("solution", self.solution_values_list, self.matplot_container, self.toolbar_container)
             current_d_nz = -1
             current_solution = []
 
@@ -120,7 +120,7 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
         self.m_parameter = MParameterView("m_parameter_table", self.m_value_table)
 
         # Lista Solucion
-        self.solution = CalculationSolutionView("solution", self.solution_values_list, self.matplot_container)
+        self.solution = CalculationSolutionView("solution", self.solution_values_list, self.matplot_container, self.toolbar_container)
 
     def initialize_view_connections(self):
 

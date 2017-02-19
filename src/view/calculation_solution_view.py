@@ -13,14 +13,15 @@ Por consiguiente, es el Observer del objeto correspondiente en el modelo
 
 class CalculationSolutionView(Observer):
 
-    def __init__(self, name, solution_list_view_object, matplot_view_object):
+    def __init__(self, name, solution_list_view_object, matplot_view_object, matplot_toolbar_view_object):
 
         super(CalculationSolutionView, self).__init__(name)
 
         self.solution_list_view = solution_list_view_object
         self.matplot_view = matplot_view_object
+        self.matplot_toolbar_view = matplot_toolbar_view_object
 
-        self.matplot_creator = MatplotCreator(self.matplot_view)
+        self.matplot_creator = MatplotCreator(self.matplot_view, self.matplot_toolbar_view)
 
         self.figure_list = dict()
 

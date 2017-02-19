@@ -33,7 +33,7 @@ class MainWindow(QMainWindow, main_window):
         self.field_id = 1
 
         # Creo el objeto correspondiente a la pantalla de Comparaciones
-        self.comparation_view = ComparationSessionLayout(self.matplot_container, self.saved_calculation_list, self.saved_calculation_info)
+        self.comparation_view = ComparationSessionLayout(self.matplot_container, self.toolbar_container, self.saved_calculation_list, self.saved_calculation_info)
 
         # Le agrego funcionalidad a los botones que abren, cargan y cierran sesiones de calculo y campo
         self.create_new_calculation_button.clicked.connect(self.create_new_calculation_session)
@@ -102,6 +102,10 @@ class MainWindow(QMainWindow, main_window):
     def delete_current_calculation_session(self):
 
         # TODO: Cartel de ¿Esta seguro?
+
+        # Primero debo frenar la sesion de matlab
+        current_session = self.calculation_session_container.currentWidget()
+        current_session.stop_session()
 
         self.calculation_session_container.removeTab(self.calculation_session_container.currentIndex())
 

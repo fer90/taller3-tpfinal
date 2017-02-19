@@ -119,3 +119,7 @@ class CalculationSession(object):
     def register_solution_observer(self, observer):
 
         self.solution.register(observer)
+
+    def stop_session(self):
+
+        self.calculation_solver.stop()

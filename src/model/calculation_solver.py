@@ -37,3 +37,7 @@ class CalculationSolver(object):
             return self.matlab_interface.solve_parallel(na, nbr, nc, d_nz, m_from, m_to)
         else:
             return self.matlab_interface.solve_perpendicular(na, nbr, nc, d_nz, m_from, m_to)
+
+    def stop(self):
+
+        self.matlab_interface.stop_engine()
