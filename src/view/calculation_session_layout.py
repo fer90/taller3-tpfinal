@@ -312,3 +312,8 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
         else:
             logging.debug("No hay datos para exportar")
             DialogBox.show_dialog_box(QMessageBox.Information, "Exportar Datos", "No hay datos para exportar!")
+
+    def stop_session(self):
+
+        # Principalmente, se utiliza para frenar el motor de matlab utilizado
+        self.controller.stop_session()

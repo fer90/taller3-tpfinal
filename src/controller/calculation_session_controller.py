@@ -37,3 +37,7 @@ class CalculationSessionController(object):
     def register_solution_observer(self, observer):
 
         self.calculation_session.register_solution_observer(observer)
+
+    def stop_session(self):
+
+        self.calculation_session.stop_session()

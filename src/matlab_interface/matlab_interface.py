@@ -14,9 +14,15 @@ class MatlabInterface(object):
 
         super(MatlabInterface, self).__init__()
 
-        self.future = matlab.engine.connect_matlab(async=True)
+        try:
+            self.future = matlab.engine.connect_matlab(async=True)
         
-        self.eng = self.future.result()
+            self.eng = self.future.result()
+        except Exception:
+
+            logging.warning("No se ha podido conectar a una sesion de matlab existente. Creando una...");
+            # No se ha podido conectar a una sesion activa -> creo una
+            self.eng = matlab.engine.start_matlab('-nodesktop -nojvm -nosplash')
 
     def solve_m_parallel(self, na, nbr, nc, d):
 
@@ -62,6 +68,10 @@ class MatlabInterface(object):
         logging.debug("Resonancia perpendicular: " + str(ret))
 
         return ret[0][1::-1]
+
+    def stop_engine(self):
+
+        self.eng.quit()
 
 #interface = MatlabInterface()
 #interface.solve_both()
