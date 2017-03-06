@@ -4,6 +4,9 @@ from PyQt4 import uic
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
+import os, sys
+from os import walk
+
 import sys
 sys.path.append('../')
 
@@ -30,6 +33,20 @@ class FieldSessionLayout(QWidget, field_session_design):
 
     def initialize_view_objects(self):
 
+        # Inicializo los combos con los nombres de las sesiones de calculo guardadas
+        # 1) Obtengo todos los archivos guardados
+        files = []
+        # TODO: Deshardcodear directorio de sesiones guardadas
+        for (dirpath, dirnames, filenames) in walk(os.getcwd() + "/save_sessions/calculation/"):
+
+            self.first_field_combo.clear()
+            self.first_field_combo.addItems(filenames)
+            self.second_field_combo.clear()
+            self.second_field_combo.addItems(filenames)
+
+            break
+
+        # Inicializo las tablas solucion
         self.first_field_solution_view = FieldSolutionView("First Field Solution View", self.first_field_solution_table)
         self.second_field_solution_view = FieldSolutionView("Second Field Solution View", self.second_field_solution_table)
 
