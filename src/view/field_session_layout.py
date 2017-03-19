@@ -66,17 +66,19 @@ class FieldSessionLayout(QWidget, field_session_design):
 
         # Primero obtengo el nombre de la sesion de calculo elegida
         calculation_session_name = str(self.first_field_combo.currentText())
+        filename = os.getcwd() + "/save_sessions/calculation/" + calculation_session_name
 
         # Llamo al controlador para resolver el calculo
-        self.controller.solve_first_field_parameter(calculation_session_name)
+        self.controller.solve_first_field_parameter(filename)
 
     def second_field_calculation(self):
 
         # Primero obtengo el nombre de la sesion de calculo elegida:
         calculation_session_name = str(self.second_field_combo.currentText())
+        filename = os.getcwd() + "/save_sessions/calculation/" + calculation_session_name
 
         # Llamo al controlador para resolver el calculo
-        self.controller.solve_second_field_parameter(calculation_session_name)
+        self.controller.solve_second_field_parameter(filename)
 
     def export_field_session(self):
 

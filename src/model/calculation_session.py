@@ -33,9 +33,68 @@ class CalculationSession(object):
 
     def load_from_file(self, filename):
 
-        # TODO: Ver que el archivo exista
-        # TODO: Parsear archivo
-        # TODO: Setear parametros
+        """
+        Formato:
+        na;nbr;nc;nbimin
+        [d/nz]_from;[d/nz]_step;[d/nz]_to;mode
+        d/nz;m_from;m_to
+        ...
+        [d/nz];x1;y1
+        ...
+        """
+
+        with open(filename, 'r') as file_handler:
+
+            line = file_handler.readline().rstrip('\n')
+            input_parameters = line.split(";")
+            self.na = float(input_parameters[0])
+            self.nbr = float(input_parameters[1])
+            self.nc = float(input_parameters[2])
+            if len(input_parameters) == 4:
+                self.nbi_min = input_parameters[3]
+
+            line = file_handler.readline().rstrip('\n')
+            d_nz_parameters = line.split(";")
+            self.d_nz_from = float(d_nz_parameters[0])
+            self.d_nz_step = float(d_nz_parameters[1])
+            self.d_nz_to = float(d_nz_parameters[2])
+            self.calculation_mode = CalculationMode(int(d_nz_parameters[3]))
+
+            m_values_list = []
+            self.m_parameter = MParameterView("m_parameter_table", self.m_value_table)
+            for line in file_handler:
+                if line == "-----\n":
+                    break
+                separated_line = line.split(';')
+                m_values_list.append([float(separated_line[0]), int(separated_line[1]), int(separated_line[2])])
+            if len(m_values_list) > 0:
+                self.m_parameter.notify(m_values_list)
+
+            solution_list = []
+            self.solution = CalculationSolutionView("solution", self.solution_values_list, self.matplot_container, self.toolbar_container)
+            current_d_nz = -1
+            current_solution = []
+
+            for line in file_handler:
+                logging.debug("La siguiente linea es: " + line)
+                separated_line = line.split(';')
+                new_d_nz = float(separated_line[0])
+
+                if new_d_nz != current_d_nz:
+                    if current_solution:
+                        solution_list.append([current_d_nz, [[solution[0] for solution in current_solution], [solution[1] for solution in current_solution]]])
+                    current_solution = []
+                    current_d_nz = new_d_nz
+
+                current_solution.append([float(separated_line[1]), float(separated_line[2])])
+
+            # Agrego el ultimo d/nz
+            if current_solution:
+                solution_list.append([current_d_nz, [[solution[0] for solution in current_solution], [solution[1] for solution in current_solution]]])
+
+            if solution_list:
+                logging.debug("La lista de soluciones cargadas es: " + str(solution_list))
+                self.solution.notify(solution_list)
         self.d = MultipleValuesEntryParameter("d'", 2, 2, 10)
 
     def initialize_parameters(self):

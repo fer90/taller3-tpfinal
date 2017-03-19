@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from matplotlib.figure import Figure
-from matplotlib.backends.backend_qt4agg import (FigureCanvasQTAgg as FigureCanvas, NavigationToolbar2QT as NavigationToolbar)
+from view.matplot_figure import MatplotFigure
 
 import numpy as np
 
@@ -19,16 +18,13 @@ class MatplotCreator(object):
         self.toolbar_container = toolbar_view_container
         self.toolbar_container_layout = self.toolbar_container.layout() 
 
-        self.canvas = None
+        self.currentPlot = None
         self.there_is_plot = False
 
     def create_figure(self, solution_list):
         
-        # Este metodo me crea un grafico con los pares solucion de la lista parametro
-        figure = Figure()
-        ax1f1 = figure.add_subplot(111)
-        
-        ax1f1.plot(solution_list[0], solution_list[1], "ob", solution_list[0], solution_list[1])
+        # Este objeto me crea un grafico con los pares solucion de la lista parametro
+        figure = MatplotFigure(solution_list)
 
         return figure
 
@@ -37,25 +33,25 @@ class MatplotCreator(object):
         # Elimino el posible widget inicial
         if self.there_is_plot:
             self.remove_plot()
+            self.currentPlot = None
 
+        self.currentPlot = figure
         self.add_plot(figure)
 
     def add_plot(self, figure):
 
-        self.canvas = FigureCanvas(figure)
-        self.plot_container_layout.addWidget(self.canvas)
-        self.canvas.draw()
+        figure.add_plot(self.toolbar_container)
 
-        self.toolbar = NavigationToolbar(self.canvas, self.toolbar_container, coordinates=True)
-        self.toolbar_container_layout.addWidget(self.toolbar)
+        self.plot_container_layout.addWidget(self.currentPlot.get_canvas())
+        self.toolbar_container_layout.addWidget(self.currentPlot.get_toolbar())
 
         self.there_is_plot = True
 
     def remove_plot(self):
 
         if self.there_is_plot:
-            self.plot_container_layout.removeWidget(self.canvas)
-            self.canvas.close()
-            self.toolbar_container_layout.removeWidget(self.toolbar)
-            self.toolbar.close()
+            self.plot_container_layout.removeWidget(self.currentPlot.get_canvas())
+            self.toolbar_container_layout.removeWidget(self.currentPlot.get_toolbar())
+            self.currentPlot.remove_plot()
+
         self.there_is_plot = False
