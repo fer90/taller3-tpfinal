@@ -47,9 +47,17 @@ class MParameterView(Observer):
         m_item = QRangeSlider()
         from_value = values_list[1]
         to_value = values_list[2]
+
+        print("From Value: " + str(from_value))
+        print("To Value: " + str(to_value))
+
         m_item.setMin(from_value - 3)
         m_item.setMax(to_value + 3)
+        m_item.show()
         m_item.setRange(from_value, to_value)
+
+        m_item.setBackgroundStyle('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #222, stop:1 #333);')
+        m_item.setSpanStyle('background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #282, stop:1 #393);')
 
         # Agrego la nueva fila a la tabla
         self.layout_object.insertRow(row_count)
