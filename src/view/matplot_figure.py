@@ -18,6 +18,9 @@ class MatplotFigure(object):
 		self.figure = Figure()
 		self.ax1f1 = self.figure.add_subplot(111)
 
+		self.ax1f1.set_xlabel('Nz')
+		self.ax1f1.set_ylabel('Nbi')
+
 		self.x = solution_list[0]
 		self.y = solution_list[1]
 		self.ax1f1.plot(solution_list[0], solution_list[1], "ob", solution_list[0], solution_list[1])
