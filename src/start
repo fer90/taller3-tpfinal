@@ -1,0 +1,5 @@
+#!/bin/bash
+
+exec matlab -nodesktop -r 'matlab.engine.shareEngine' &
+
+exec ./main.py
