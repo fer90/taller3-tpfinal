@@ -1,5 +1,8 @@
 #!/bin/bash
 
-exec matlab -nodesktop -r 'matlab.engine.shareEngine' &
+exec matlab -nojvm -nosplash -nodesktop -r 'matlab.engine.shareEngine' &
 
-exec ./main.py
+./main.py
+
+# Acá termina el programa -> killeo el matlab
+kill $(ps aux | grep 'matlab.engine.shareEngine' | grep -v "grep" | awk '{print $2}')
