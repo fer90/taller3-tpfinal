@@ -14,7 +14,7 @@ class MatlabInterface(object):
 
         def __init__(self):
 
-            super(MatlabInterface.__MatlabInterface, self).__init__()
+            #super(MatlabInterface.__MatlabInterface, self).__init__()
 
             try:
                 self.future = matlab.engine.connect_matlab(async=True)
@@ -71,6 +71,22 @@ class MatlabInterface(object):
 
             return ret[0][1::-1]
 
+        def solve_field_parallel(self, na, nbr, nbi, nc, nz, d):
+            
+            h_2_4, h_5_3 = self.eng.field_p(float(na), float(nbr), nbi, float(nc), nz, float(d), nargout=2)
+
+            logging.debug("Campos paralelos H2/H4 = " + str(h_2_4) + ". H5/H3 = " + str(h_5_3))
+
+            return [h_2_4, h_5_3]
+
+        def solve_field_perpendicular(self, na, nbr, nbi, nc, nz, d):
+            
+            e_2_4, e_5_3 = self.eng.field_s(float(na), float(nbr), nbi, float(nc), nz, float(d), nargout=2)
+
+            logging.debug("Campos paralelos E2/E4 = " + str(e_2_4) + ". E5/E3 = " + str(e_5_3))
+
+            return [e_2_4, e_5_3]
+
         def stop_engine(self):
 
             self.eng.quit()
@@ -87,4 +103,5 @@ class MatlabInterface(object):
         return MatlabInterface.instance
 
 #interface = MatlabInterface()
-#interface.solve_both()
+#interface.solve_field_parallel(1, 1.2, 0.98, 1, 0.5, 2)
+#interface.solve_field_perpendicular(1, 1.2, 0.98, 1, 0.5, 2)

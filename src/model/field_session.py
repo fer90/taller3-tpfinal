@@ -35,36 +35,36 @@ class FieldSession(object):
         # Resolvedor de todos los calculos (ifaz hacia matlab de ser necesario)
         self.field_solver = FieldSolver()
 
-    # TODO: Agregar parametros
-    def calcule_field_magnitude(self, d):
+    # Param 'solution': Contiene una lista de la forma [[d1, [nz, nbi]]...]
+    def calcule_field_magnitude(self, na, nbr, nc, solution, mode):
 
         field_solution = []
 
-        # TODO: Setear todos los parametros
+        for elem in solution:
 
-        for d_value in range(d.get_value_from(), d.get_value_to(), d.get_value_step()):
+            for points in elem[1]:
 
-            current_solution = []
+                current_solution = []
 
-            current_solution.append(d_value)
+                current_solution.append(elem[0])
 
-            current_field_solution = self.field_solver.solve_field()
+                current_field_solution = self.field_solver.solve_field(na, nbr, points[1], nc, points[0], elem[0], mode)
 
-            current_solution.append(current_field_solution)
+                current_solution.append(current_field_solution)
 
-            field_solution.append(current_solution)
+                field_solution.append(current_solution)
 
         return field_solution
 
     # TODO: Agregar parametros
-    def calcule_first_field_magnitude(self, d):
+    def calcule_first_field_magnitude(self, na, nbr, nc, solution, mode):
 
-        self.first_field_solution.set_solution(self.calcule_field_magnitude(d))
+        self.first_field_solution.set_solution(self.calcule_field_magnitude(na, nbr, nc, solution, mode))
 
     # TODO: Agregar parametros
-    def calcule_second_field_magnitude(self, d):
+    def calcule_second_field_magnitude(self, na, nbr, nc, solution, mode):
 
-        self.second_field_solution.set_solution(self.calcule_field_magnitude(d))
+        self.second_field_solution.set_solution(self.calcule_field_magnitude(na, nbr, nc, solution, mode))
 
     def save_session(self, filename):
         # TODO: Implementar

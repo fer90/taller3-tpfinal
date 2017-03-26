@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import logging
 
 sys.path.append('../')
 
@@ -61,17 +62,18 @@ class CalculationSession(object):
             self.calculation_mode = CalculationMode(int(d_nz_parameters[3]))
 
             m_values_list = []
-            self.m_parameter = MParameterView("m_parameter_table", self.m_value_table)
+            #self.m_parameter = MParameterView("m_parameter_table", self.m_value_table)
             for line in file_handler:
                 if line == "-----\n":
                     break
                 separated_line = line.split(';')
                 m_values_list.append([float(separated_line[0]), int(separated_line[1]), int(separated_line[2])])
             if len(m_values_list) > 0:
-                self.m_parameter.notify(m_values_list)
+                pass
+                #self.m_parameter.notify(m_values_list)
 
-            solution_list = []
-            self.solution = CalculationSolutionView("solution", self.solution_values_list, self.matplot_container, self.toolbar_container)
+            self.solution_list = []
+            #self.solution = CalculationSolutionView("solution", self.solution_values_list, self.matplot_container, self.toolbar_container)
             current_d_nz = -1
             current_solution = []
 
@@ -82,7 +84,7 @@ class CalculationSession(object):
 
                 if new_d_nz != current_d_nz:
                     if current_solution:
-                        solution_list.append([current_d_nz, [[solution[0] for solution in current_solution], [solution[1] for solution in current_solution]]])
+                        self.solution_list.append([current_d_nz, [[solution[0] for solution in current_solution], [solution[1] for solution in current_solution]]])
                     current_solution = []
                     current_d_nz = new_d_nz
 
@@ -90,12 +92,12 @@ class CalculationSession(object):
 
             # Agrego el ultimo d/nz
             if current_solution:
-                solution_list.append([current_d_nz, [[solution[0] for solution in current_solution], [solution[1] for solution in current_solution]]])
+                self.solution_list.append([current_d_nz, [[solution[0] for solution in current_solution], [solution[1] for solution in current_solution]]])
 
-            if solution_list:
-                logging.debug("La lista de soluciones cargadas es: " + str(solution_list))
-                self.solution.notify(solution_list)
-        self.d = MultipleValuesEntryParameter("d'", 2, 2, 10)
+            if self.solution_list:
+                logging.debug("La lista de soluciones cargadas es: " + str(self.solution_list))
+                #self.solution.notify(self.solution_list)
+        #self.d = MultipleValuesEntryParameter("d'", 2, 2, 10)
 
     def initialize_parameters(self):
 
@@ -117,6 +119,7 @@ class CalculationSession(object):
 
         # Solucion de m y del calculo
         self.solution = SolutionContainer()
+        self.solution_list = None
 
         # Resolvedor de todos los calculos (ifaz hacia matlab)
         self.calculation_solver = CalculationSolver()

@@ -22,13 +22,17 @@ class FieldSessionController(object):
 
         calculation_session = CalculationSession(calculation_session_name)
         # TODO: Agregar parametros correspondientes
-        self.field_session.calcule_first_field_magnitude(calculation_session.d)
+        self.field_session.calcule_first_field_magnitude(calculation_session.na, 
+            calculation_session.nbr, calculation_session.nc, calculation_session.solution_list, 
+            calculation_session.calculation_mode)
 
     def solve_second_field_parameter(self, calculation_session_name):
 
         calculation_session = CalculationSession(calculation_session_name)
         # TODO: Agregar parametros correspondientes
-        self.field_session.calcule_second_field_magnitude(calculation_session.d)
+        self.field_session.calcule_second_field_magnitude(calculation_session.na, 
+            calculation_session.nbr, calculation_session.nc, calculation_session.solution_list, 
+            calculation_session.calculation_mode)
 
     # Metodos para registrar observadores de solucion de campos
     def register_first_field_observer(self, first_observer):
