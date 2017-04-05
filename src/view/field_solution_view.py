@@ -26,6 +26,8 @@ class FieldSolutionView(Observer):
         self.re_eh_53_item_column = 3
         self.im_eh_53_item_column = 4
 
+        self.has_solution = False
+
     def notify(self, solution_list):
 
         # Limpio la tabla de informacion vieja
@@ -37,6 +39,8 @@ class FieldSolutionView(Observer):
         # [[d', [[1, 2], [3, 4]]]...[...]]
         for solution in solution_list:
             self.add_value(solution, self.field_table_view.rowCount())
+            self.has_solution = True
+
 
     def add_value(self, values_list, row_count):
 
@@ -58,3 +62,24 @@ class FieldSolutionView(Observer):
 
         while (self.field_table_view.rowCount() > 0):
             self.field_table_view.removeRow(0);
+
+        self.has_solution = False
+
+    def get_values(self):
+
+        text = ""
+        allRows = self.field_table_view.rowCount()
+        for row in xrange(0,allRows):
+            d_item = self.field_table_view.item(row, self.d_item_column)
+            re_eh_24_item = self.field_table_view.item(row, self.re_eh_24_item_column)
+            im_eh_24_item = self.field_table_view.item(row, self.im_eh_24_item_column)
+            re_eh_53_item = self.field_table_view.item(row, self.re_eh_53_item_column)
+            im_eh_53_item = self.field_table_view.item(row, self.im_eh_53_item_column)
+            text = d_item + ";" + re_eh_24_item + ";" + im_eh_24_item + ";" + re_eh_53_item + ";" + im_eh_53_item + "\n"
+
+        return text
+
+    
+    def has_solution(self):
+
+        return self.has_solution

@@ -103,10 +103,6 @@ class MainWindow(QMainWindow, main_window):
 
         # TODO: Cartel de ¿Esta seguro?
 
-        # Primero debo frenar la sesion de matlab
-        current_session = self.calculation_session_container.currentWidget()
-        current_session.stop_session()
-
         self.calculation_session_container.removeTab(self.calculation_session_container.currentIndex())
 
     def create_new_field_session(self):
@@ -123,7 +119,24 @@ class MainWindow(QMainWindow, main_window):
 
     def save_current_field_session(self):
 
-        pass
+        filename = InputDialogBox.show_text_input_dialog_box(self, "Guardar sesión de campo", "Ingrese el nombre de la sesión de campo: ")
+
+        logging.debug("Se guardará la sesión de campo en el archivo: " + str(filename))
+
+        # TODO: Deshardcodear directorio de sesiones guardadas
+        file_handler = open(os.getcwd() + "/save_sessions/field/" + filename, 'w')
+        
+        current_session = self.field_session_container.currentWidget()
+
+        if current_session.save_field_session(file_handler):
+            logging.error("Sesión guardada con éxito!")
+            # TODO: Modificar titulo del tab!
+            file_handler.close()
+            DialogBox.show_dialog_box(QMessageBox.Information, "Guardar sesión", "Se ha guardado la sesión satisfactoriamente")
+        else:
+            logging.error("La sesión no ha podido guardarse!")
+            os.unlink(file_handler.name)
+            DialogBox.show_dialog_box(QMessageBox.Critical, "Guardar sesión", "No se ha podido guardar la sesión")
 
     def delete_current_field_session(self):
 
