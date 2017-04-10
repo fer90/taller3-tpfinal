@@ -6,6 +6,7 @@ from PyQt4.QtGui import *
 
 import os, sys
 from os import walk
+import logging
 
 import sys
 sys.path.append('../')
@@ -30,22 +31,21 @@ class FieldSessionLayout(QWidget, field_session_design):
         self.identificator = identificator
         self.controller = FieldSessionController()
 
-        if filename is None:
-            self.initialize_view_objects()
-        else:
+        self.initialize_view_objects()
+        if filename is not None:
             self.initialize_view_objects_from_file(filename)
         self.initialize_view_connections()
         self.initialize_view_observers()
 
-        def initialize_view_objects_from_file(self, filename):
+    def initialize_view_objects_from_file(self, filename):
 
         """
         Formato:
-        nombreSesionCalculo1
+        nombreSesionCampo1
         d/nz;Re(EH_2_4);Im(EH_2_4);Re(EH_5_3);Im(EH_5_3)
         ...
         +++++
-        nombreSesionCalculo2
+        nombreSesionCampo2
         d/nz;Re(EH_2_4);Im(EH_2_4);Re(EH_5_3);Im(EH_5_3)
         ...
         """
@@ -65,28 +65,14 @@ class FieldSessionLayout(QWidget, field_session_design):
                         break
                     separated_line = line.split(';')
 
-                    if current_d is None:
-
-                        d_values_list.append([separated_line[1], separated_line[2], separated_line[3], separated_line[4]])
-                        current_d = separated_line[0]
-
-                    else:
-
-                        if current_d == separated_line[0]:
-                            d_values_list.append([separated_line[1], separated_line[2], separated_line[3], separated_line[4]])
-                        else:
-                            field_values_list.append([separated_line[0], d_values_list])
-                            d_values_list = list()
-                            current_d = separated_line[0]
-
-                # Cargo el ultimo
-                field_values_list.append([current_d, d_values_list])
+                    field_values_list.append([separated_line[0], [[separated_line[1], separated_line[2]], [separated_line[3], separated_line[4]]]])
 
                 if len(field_values_list) > 0:
                     self.first_field_solution_view.notify(field_values_list)
 
                 if line == "+++++\n":
 
+                    line = file_handler.readline().rstrip('\n')
                     self.second_calculation_session_name = line
                     current_d = None
                     d_values_list = list()
@@ -94,26 +80,14 @@ class FieldSessionLayout(QWidget, field_session_design):
                     for line in file_handler:
                         if line == "-----\n" or line == "+++++\n":
                             break
+                        line = line.rstrip('\n')
+                        logging.debug(str(line))
                         separated_line = line.split(';')
 
-                        if current_d is None:
-
-                            d_values_list.append([separated_line[1], separated_line[2], separated_line[3], separated_line[4]])
-                            current_d = separated_line[0]
-
-                        else:
-
-                            if current_d == separated_line[0]:
-                                d_values_list.append([separated_line[1], separated_line[2], separated_line[3], separated_line[4]])
-                            else:
-                                field_values_list.append([separated_line[0], d_values_list])
-                                d_values_list = list()
-                                current_d = separated_line[0]
-
-                # Cargo el ultimo
-                field_values_list.append([current_d, d_values_list])
+                        field_values_list.append([separated_line[0], [[separated_line[1], separated_line[2]], [separated_line[3], separated_line[4]]]])
 
                 if len(field_values_list) > 0:
+                    logging.debug("La lista de valores cargados es: " + str(field_values_list))
                     self.second_field_solution_view.notify(field_values_list)
 
     def initialize_view_objects(self):
@@ -199,7 +173,7 @@ class FieldSessionLayout(QWidget, field_session_design):
                 line = "+++++\n" + str(self.second_calculation_session_name) + "\n"
                 file_handler.write(line)
                 file_handler.write(self.second_field_solution_view.get_values())
-            else
+            else:
                 line = "-----\n"
                 file_handler.write(line)
 
@@ -228,17 +202,18 @@ class FieldSessionLayout(QWidget, field_session_design):
 
                 if self.first_field_solution_view.has_solution():
                     file_handler.write(self.first_calculation_session_name + "\n")
-                    file_handler.write(self.first_field_solution_view.get_values)
+                    file_handler.write(self.first_field_solution_view.get_values())
                 if self.second_field_solution_view.has_solution():
+                    file_handler.write("-----\n")
                     file_handler.write(self.second_calculation_session_name + "\n")
-                    file_handler.write(self.second_field_solution_view.get_values)
+                    file_handler.write(self.second_field_solution_view.get_values())
 
             except Exception as e:
 
                 logging.error("Error al exportar datos: " + str(e))
                 os.unlink(file_handler.name)
                 DialogBox.show_dialog_box(QMessageBox.Critical, "Error exportando datos", "Se ha producido un error al exportar los resultados del campo", str(e))
-            
+
             else:
 
                 file_handler.close()

@@ -115,7 +115,27 @@ class MainWindow(QMainWindow, main_window):
 
     def open_saved_field_session(self):
 
-        pass
+        # Obtengo todos los archivos guardados
+        files = []
+        # TODO: Deshardcodear directorio de sesiones guardadas
+        for (dirpath, dirnames, filenames) in walk(os.getcwd() + "/save_sessions/field/"):
+            files.extend(filenames)
+            break
+        logging.debug("Los archivos guardados hallados son: " + str(files))
+        
+        # Muestro un pop-up con una lista de archivos guardados
+        session_name = InputDialogBox.show_item_input_dialog_box(self, "Sesiones guardadas", "Elija una de las sesiones guardadas:", files)
+
+        if session_name is not None:
+
+            # Construyo el nombre completo del archivo
+            filename = os.getcwd() + "/save_sessions/field/" + session_name
+
+            # Obtengo el elegido por el user y agrego un Tab con una nueva session layout
+            self.field_session_layout = FieldSessionLayout(self.field_id, filename)
+            last_index = self.field_session_container.addTab(self.field_session_layout, session_name)
+            self.field_session_container.setCurrentIndex(last_index)
+            self.field_id += 1
 
     def save_current_field_session(self):
 
