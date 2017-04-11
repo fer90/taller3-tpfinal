@@ -22,6 +22,11 @@ class SnaptoCursor(object):
                              xy=(x,y), xytext=(x+SEP, y), 
                              bbox=dict(facecolor='white', boxstyle='round', alpha=0.4))
 
+    def append_x_y(self, x, y):
+
+        self.x = self.x + x
+        self.y = self.y + y
+
     def mouse_move(self, event):
 
         if not event.inaxes:

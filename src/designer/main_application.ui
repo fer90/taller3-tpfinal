@@ -21,7 +21,7 @@
        <enum>QTabWidget::West</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="calculation_window">
        <attribute name="title">
@@ -121,12 +121,13 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
+                <layout class="QVBoxLayout" name="verticalLayout_7"/>
                </widget>
               </item>
               <item>
                <widget class="QWidget" name="toolbar_container" native="true">
                 <property name="sizePolicy">
-                 <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                   <horstretch>0</horstretch>
                   <verstretch>0</verstretch>
                  </sizepolicy>
@@ -134,9 +135,10 @@
                 <property name="maximumSize">
                  <size>
                   <width>16777215</width>
-                  <height>30</height>
+                  <height>50</height>
                  </size>
                 </property>
+                <layout class="QVBoxLayout" name="verticalLayout_8"/>
                </widget>
               </item>
              </layout>
@@ -187,17 +189,12 @@
                   <height>16777215</height>
                  </size>
                 </property>
-                <zorder>saved_calculation_list</zorder>
                </widget>
               </item>
              </layout>
             </widget>
            </item>
           </layout>
-          <zorder>matplot_toolbar_container</zorder>
-          <zorder>saved_calculation_list</zorder>
-          <zorder>matplot_toolbar_container</zorder>
-          <zorder>saved_calculation_container</zorder>
          </widget>
         </item>
        </layout>

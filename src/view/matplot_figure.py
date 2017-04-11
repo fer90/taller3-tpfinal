@@ -54,3 +54,9 @@ class MatplotFigure(object):
 		self.toolbar.close()
 
 		self.cursor = None
+
+	def add_graphics(self, solution_list):
+
+		self.ax1f1.plot(solution_list[0], solution_list[1], "ob", solution_list[0], solution_list[1])
+
+		self.cursor.append_x_y(solution_list[0], solution_list[1])
