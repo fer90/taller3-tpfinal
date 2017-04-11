@@ -44,6 +44,7 @@ class ComparationSessionLayout(object):
         self.figure = None
 
         self.calculation_sessions = dict()
+        self.lines_index = dict()
 
         self.initialize_saved_sessions()
 
@@ -73,6 +74,7 @@ class ComparationSessionLayout(object):
         self.saved_calculations_list_view.setModel(self.model)
         self.saved_calculations_list_view.show()
 
+    """
     def selection_item_changed(self, item, anotherItem):
 
         logging.debug("asdasdasdas")
@@ -86,27 +88,31 @@ class ComparationSessionLayout(object):
             self.mode_widget.setText("Modo = PARALELO")
         else:
             self.mode_widget.setText("Modo = PERPENDICULAR")
+    """
 
     def item_changed(self, item):
 
-        logging.debug("asdasdasdasd")
         if item.checkState() == Qt.Checked:
 
             calculation_session_name = os.getcwd() + "/save_sessions/calculation/" + item.text()
             calculation_session = CalculationSession(calculation_session_name)
 
+            self.lines_index[item.text()] = list()
+
             for solution in calculation_session.solution_list:
                 if self.figure is None:
 
                     logging.debug("Voy a agregar la solucion " + str(solution))
-
-                    self.figure = self.matplot_creator.create_figure(solution[1])
+                    legend = "d' = " + str(solution[0]) + ", Na = " + str(calculation_session.na) + ", \nNbr = " + str(calculation_session.nbr) + ", Nc = " + str(calculation_session.nc)
+                    self.figure = self.matplot_creator.create_figure(solution[1], legend)
                     self.matplot_creator.create_plot(self.figure)
+
+                    self.lines_index[item.text()].append(self.figure.get_current_lines())
                 else:
 
                     logging.debug("Voy a agregar la solucion " + str(solution))
-
-                    self.figure.add_graphics(solution[1])
+                    legend = "d' = " + str(solution[0]) + ", Na = " + str(calculation_session.na) + ", \nNbr = " + str(calculation_session.nbr) + ", Nc = " + str(calculation_session.nc)
+                    self.lines_index[item.text()].append(self.figure.add_graphics(solution[1], legend))
 
             self.na_widget.setText("Na = " + str(calculation_session.na))
             self.nbr_widget.setText("Nbr = " + str(calculation_session.nbr))
@@ -121,9 +127,10 @@ class ComparationSessionLayout(object):
 
         elif item.checkState() == Qt.Unchecked:
 
-            # Descheckearon el item. TODO: Sacar del grafico
-            pass
+            for solution in self.calculation_sessions[item.text()].solution_list:
+                self.figure.remove_points(solution[1])
+            for lines in self.lines_index[item.text()]:
+                self.figure.remove_graphics(lines)
 
-        elif item.checkState() == Qt.Selected:
-            logging.debug("asdasdas")
-            pass
+            del self.lines_index[item.text()]
+            del self.calculation_sessions[item.text()]

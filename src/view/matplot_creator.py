@@ -21,10 +21,10 @@ class MatplotCreator(object):
         self.currentPlot = None
         self.there_is_plot = False
 
-    def create_figure(self, solution_list):
+    def create_figure(self, solution_list, label = None):
         
         # Este objeto me crea un grafico con los pares solucion de la lista parametro
-        figure = MatplotFigure(solution_list)
+        figure = MatplotFigure(solution_list, label)
 
         return figure
 
