@@ -54,6 +54,10 @@ class CalculationSolutionView(Observer):
         text = item_selected.text()
         self.matplot_creator.create_plot(self.figure_list[text])
 
+    def change_current_figure_on_demand(self, label):
+
+        self.matplot_creator.create_plot(self.figure_list[label])
+
     def has_solution(self):
 
         return self.solution_list is not None

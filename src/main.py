@@ -165,6 +165,7 @@ class MainWindow(QMainWindow, main_window):
         self.field_session_container.removeTab(self.field_session_container.currentIndex())
 
 if __name__ == '__main__':
+
     app = QApplication(sys.argv)
 
     logging.basicConfig(level=logging.DEBUG)

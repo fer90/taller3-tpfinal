@@ -4,7 +4,7 @@ from PyQt4 import uic
 from PyQt4.QtCore import *
 from PyQt4.QtGui import *
 
-import logging
+import logging, threading, time
 import os, sys
 sys.path.append('../')
 
@@ -28,6 +28,11 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
         self.setupUi(self)
 
         self.controller = CalculationSessionController()
+
+        #self.evolution_running = False
+        #self.evolution_thread = None
+        #self.evolution_thread_cv = threading.Condition()
+        #self.keep_evolution_running = False
 
         if filename is None:
             self.initialize_view_objects()
@@ -137,6 +142,7 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
         self.m_calculation_button.clicked.connect(self.m_calculation)
         self.solution_calculation_button.clicked.connect(self.solution_calculation)
         self.export_calculation_session_button.clicked.connect(self.export_calculation_session)
+        #self.evolution_button.clicked.connect(self.manage_evolution)
 
     def initialize_view_observers(self):
 
@@ -320,3 +326,48 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
 
         # Principalmente, se utiliza para frenar el motor de matlab utilizado
         self.controller.stop_session()
+
+    def manage_evolution(self):
+
+        cant_solutions = self.solution_values_list.count()
+        for i in range(cant_solutions):
+
+            self.solution.change_current_figure_on_demand(self.solution_values_list.item(i).text())
+            time.sleep(5)
+
+        """
+        if self.evolution_running:
+
+            # Freno el thread
+            self.keep_evolution_running = False
+            del self.evolution_thread
+            
+            # Cambio nombre a 'Start Evolution'
+            self.evolution_button.setText('Start Evolution')
+
+        else:
+
+            # Start thread
+            self.keep_evolution_running = True
+            self.evolution_thread = threading.Thread(target=self.run_evolution)
+            self.evolution_thread.start()
+
+            # Cambio nombre a 'Stop Evolution'
+            self.evolution_button.setText('Stop Evolution')
+        """
+
+        #self.evolution_running = not self.evolution_running
+"""
+    def run_evolution(self):
+
+        cant_solutions = self.solution_values_list.count()
+        i = 0
+
+        while self.keep_evolution_running:
+
+            self.solution.change_current_figure_on_demand(self.solution_values_list.item(i).text())
+            time.sleep(0.75)
+            i += 1
+            if (i == cant_solutions):
+                i = 0
+"""

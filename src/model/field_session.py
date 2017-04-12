@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import logging
+
 from model.field_solver import FieldSolver
 from model.field_solution_container import FieldSolutionContainer
 #from utils.entry_parameter import EntryParameter
@@ -42,13 +44,17 @@ class FieldSession(object):
 
         for elem in solution:
 
-            for points in elem[1]:
+            logging.debug("Elem0: " + str(elem[0]))
+            logging.debug("Elem1: " + str(elem[1]))
+            for nbi, nz in zip(elem[1][0], elem[1][1]):
 
                 current_solution = []
 
                 current_solution.append(elem[0])
 
-                current_field_solution = self.field_solver.solve_field(na, nbr, points[1], nc, points[0], elem[0], mode)
+                logging.debug("Nbi: " + str(nbi) + ". Nz: " + str(nz))
+
+                current_field_solution = self.field_solver.solve_field(na, nbr, nbi, nc, nz, elem[0], mode)
 
                 current_solution.append(current_field_solution)
 
