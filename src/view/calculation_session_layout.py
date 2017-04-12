@@ -57,6 +57,9 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
             self.nc = float(input_parameters[2])
             if len(input_parameters) == 4:
                 self.nbi_min = input_parameters[3]
+                self.nz_calculation = True
+            else:
+                self.nz_calculation = False
 
             line = file_handler.readline().rstrip('\n')
             d_nz_parameters = line.split(";")

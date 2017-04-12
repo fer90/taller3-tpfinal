@@ -34,6 +34,15 @@ class SnaptoCursor(object):
         self.x = [x for x in self.x if x not in removed_x]
         self.y = [y for y in self.y if y not in removed_y]
 
+    def remove_annotation(self):
+
+        if self.annotate:
+            self.annotate.remove()
+            self.canvas.draw()
+        if self.txt:
+            self.txt.remove()
+            self.canvas.draw()
+
     def mouse_move(self, event):
 
         if not event.inaxes:
@@ -47,12 +56,13 @@ class SnaptoCursor(object):
                 data_x = self.x[index]
                 data_y = self.y[index]
                 if self.annotate:
-                    self.annotate.set_position((data_x + SEP, data_y - SEP))
+                    self.annotate.set_position((data_x + SEP, data_y - (SEP * 0.1)))
                     self.annotate.set_text('x=%.18f\ny=%.18f' % (data_x, data_y))
                 else:
                     self.create_annotate(data_x, data_y)
 
                 self.txt.set_text('x=%1.18f, y=%1.18f' % (data_x, data_y))
                 self.ax.draw_artist(self.annotate)
-
+        else:
+            self.annotate.remove()
         self.canvas.draw()

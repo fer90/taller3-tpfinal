@@ -69,6 +69,8 @@ class MatplotFigure(object):
 
 	def remove_plot(self):
 
+		self.cursor.remove_annotation()
+
 		self.canvas.close()
 
 		self.toolbar.close()
