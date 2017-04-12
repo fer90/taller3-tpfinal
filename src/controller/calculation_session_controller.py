@@ -19,7 +19,6 @@ class CalculationSessionController(object):
 
     def solve_m_parameter(self, na, nbr, nc, d, nz, nbi_min, mode):
 
-        # TODO: Hacerlo mas limpio
         d_range = MultipleValuesEntryParameter("d'", d[0], d[1], d[2])
         self.calculation_session.calcule_m_parameter(na, nbr, nc, d_range, nz, nbi_min, mode)
 
