@@ -16,6 +16,8 @@ from view.comparation_session_layout import ComparationSessionLayout
 from utils.dialog_box import DialogBox
 from utils.input_dialog_box import InputDialogBox
 
+from matlab_interface.matlab_interface import MatlabInterface
+
 # Cargo mi diseño de aplicacion principal
 main_window = uic.loadUiType("designer/main_application.ui")[0]
 
@@ -170,6 +172,21 @@ if __name__ == '__main__':
 
     logging.basicConfig(level=logging.DEBUG)
 
-    main_window = MainWindow()
-    main_window.showMaximized()
+    splash_pix = QPixmap('loading2.png')
+    splash = QSplashScreen(splash_pix, Qt.WindowStaysOnTopHint)
+    splash.show()
+
+    # Llamo a la interfaz para ir creando el objeto
+    matlab_interface = MatlabInterface()
+
+    def login():
+
+        splash.close()
+
+        global main_window
+        main_window = MainWindow()
+        main_window.showMaximized()
+
+    QTimer.singleShot(10000, login)
+
     sys.exit(app.exec_())
