@@ -15,6 +15,9 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="margin">
+     <number>0</number>
+    </property>
     <item>
      <widget class="QTabWidget" name="MainWindowTab">
       <property name="tabPosition">
@@ -25,25 +28,18 @@
       </property>
       <widget class="QWidget" name="calculation_window">
        <attribute name="title">
-        <string>Calculo</string>
+        <string>Cálculo</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_5">
+        <property name="margin">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QWidget" name="calculation_window_container" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <widget class="QLabel" name="calculation_window_label">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>Cálculo de Pares Solución</string>
-             </property>
-            </widget>
-           </item>
+           <property name="margin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QWidget" name="calculation_management_buttons_container" native="true">
              <property name="sizePolicy">
@@ -53,8 +49,33 @@
               </sizepolicy>
              </property>
              <layout class="QHBoxLayout" name="horizontalLayout_3">
-              <item alignment="Qt::AlignHCenter">
+              <property name="margin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="calculation_window_label">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Cálculo de Pares Solución</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QPushButton" name="create_new_calculation_button">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string>Crear Nuevo Cálculo</string>
                 </property>
@@ -62,6 +83,12 @@
               </item>
               <item alignment="Qt::AlignHCenter">
                <widget class="QPushButton" name="open_saved_calculation_button">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string>Cargar Cálculo Guardado</string>
                 </property>
@@ -69,6 +96,12 @@
               </item>
               <item>
                <widget class="QPushButton" name="save_calculation_button">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string>Guardar Cálculo</string>
                 </property>
@@ -76,6 +109,12 @@
               </item>
               <item alignment="Qt::AlignHCenter">
                <widget class="QPushButton" name="delete_calculation_button">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
                 <property name="text">
                  <string>Eliminar Cálculo</string>
                 </property>
@@ -101,9 +140,15 @@
         <string>Comparaciones</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <property name="margin">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QWidget" name="comparation_container" native="true">
           <layout class="QHBoxLayout" name="horizontalLayout_5">
+           <property name="margin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QWidget" name="matplot_toolbar_container" native="true">
              <property name="sizePolicy">
@@ -113,6 +158,9 @@
               </sizepolicy>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout">
+              <property name="margin">
+               <number>0</number>
+              </property>
               <item>
                <widget class="QWidget" name="matplot_container" native="true">
                 <property name="sizePolicy">
@@ -121,7 +169,11 @@
                   <verstretch>0</verstretch>
                  </sizepolicy>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_7"/>
+                <layout class="QVBoxLayout" name="verticalLayout_7">
+                 <property name="margin">
+                  <number>0</number>
+                 </property>
+                </layout>
                </widget>
               </item>
               <item>
@@ -138,7 +190,11 @@
                   <height>50</height>
                  </size>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_8"/>
+                <layout class="QVBoxLayout" name="verticalLayout_8">
+                 <property name="margin">
+                  <number>0</number>
+                 </property>
+                </layout>
                </widget>
               </item>
              </layout>
@@ -159,6 +215,9 @@
               </size>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_6">
+              <property name="margin">
+               <number>0</number>
+              </property>
               <item>
                <widget class="QListView" name="saved_calculation_list">
                 <property name="sizePolicy">
@@ -204,19 +263,37 @@
         <string>Campos</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <property name="margin">
+         <number>0</number>
+        </property>
         <item>
          <widget class="QWidget" name="field_window_container" native="true">
           <layout class="QVBoxLayout" name="verticalLayout_3">
-           <item>
-            <widget class="QLabel" name="field_calculation_window_name_label">
-             <property name="text">
-              <string>Campos Oscilatorios</string>
-             </property>
-            </widget>
-           </item>
+           <property name="margin">
+            <number>0</number>
+           </property>
            <item>
             <widget class="QWidget" name="widget_2" native="true">
              <layout class="QHBoxLayout" name="horizontalLayout_2">
+              <property name="margin">
+               <number>0</number>
+              </property>
+              <item>
+               <widget class="QLabel" name="field_calculation_window_name_label">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>Campos Oscilatorios</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
               <item alignment="Qt::AlignHCenter">
                <widget class="QPushButton" name="create_field_calculation_button">
                 <property name="text">
@@ -227,7 +304,7 @@
               <item alignment="Qt::AlignHCenter">
                <widget class="QPushButton" name="open_saved_field_calculation">
                 <property name="text">
-                 <string>Cargar Cálculo de Campo Guardado</string>
+                 <string>Cargar Campo Guardado</string>
                 </property>
                </widget>
               </item>

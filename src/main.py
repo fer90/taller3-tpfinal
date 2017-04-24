@@ -163,7 +163,6 @@ class MainWindow(QMainWindow, main_window):
     def delete_current_field_session(self):
 
         # TODO: Cartel de ¿Esta seguro?
-
         self.field_session_container.removeTab(self.field_session_container.currentIndex())
 
 if __name__ == '__main__':
@@ -177,7 +176,12 @@ if __name__ == '__main__':
     splash.show()
 
     # Llamo a la interfaz para ir creando el objeto
-    matlab_interface = MatlabInterface()
+    try:
+        matlab_interface = MatlabInterface()
+    except Exception:
+        logging.error("Finalizando...")
+        splash.close()
+        sys.exit()
 
     def login():
 

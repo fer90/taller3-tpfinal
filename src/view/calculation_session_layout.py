@@ -158,12 +158,18 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
 
             self.nz_calculation = True
 
+            self.m_calculation_button.setEnabled(False)
+            self.solution_calculation_button.setEnabled(False)
+
         else:
 
             self.nbi_min_label.setEnabled(False)
             self.nbi_min_edit_line.setEnabled(False)
 
             self.nz_calculation = False
+
+            self.m_calculation_button.setEnabled(True)
+            self.solution_calculation_button.setEnabled(True)
 
     def multiple_values_state_change(self, current_index):
 

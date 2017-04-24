@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Acá termina el programa -> killeo el main por las dudas
+kill $(ps aux | grep 'main.py' | grep -v "grep" | awk '{print $2}')
+
+# Acá termina el programa -> killeo el matlab
+kill $(ps aux | grep 'matlab.engine.shareEngine' | grep -v "grep" | awk '{print $2}')

@@ -23,8 +23,17 @@ class MatlabInterface(object):
             except Exception:
 
                 logging.warning("No se ha podido conectar a una sesion de matlab existente. Creando una...");
-                # No se ha podido conectar a una sesion activa -> creo una
-                self.eng = matlab.engine.start_matlab('-nodesktop -nojvm -nosplash')
+
+                try:
+                    # No se ha podido conectar a una sesion activa -> creo una
+                    self.eng = matlab.engine.start_matlab('-nodesktop -nojvm -nosplash')
+
+                except Exception as e:
+
+                    logging.error("No se ha podido crear una sesión de Matlab. Por favor,"
+                        + " corroborar que Matlab esté instalado correctamente. "
+                        + "Si el problema persiste, contactar al administrador")
+                    raise e
 
         def solve_m_parallel(self, na, nbr, nc, d):
 
@@ -56,6 +65,8 @@ class MatlabInterface(object):
             return res[0][1::-1]
 
         def solve_parallel(self, na, nbr, nc, d, m_from, m_to):
+
+            logging.debug("Na: " + str(na) + ". Nbr: " + str(nbr) + ". Nc: " + str(nc) + ". D: " + str(d) + ". m_from: " + str(m_from) + ". m_to: " + str(m_to))
 
             ret = self.eng.resonancia_p(float(na), float(nbr), float(nc), float(d), float(m_from), float(m_to))
 
