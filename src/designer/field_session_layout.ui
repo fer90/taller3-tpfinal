@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>808</width>
+    <width>752</width>
     <height>598</height>
    </rect>
   </property>
@@ -47,6 +47,18 @@
          </property>
          <item alignment="Qt::AlignHCenter">
           <widget class="QComboBox" name="first_field_combo">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>300</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <item>
             <property name="text">
              <string>MiPrimerCalculo</string>
@@ -66,6 +78,18 @@
          </item>
          <item alignment="Qt::AlignHCenter">
           <widget class="QPushButton" name="first_field_calculation_button">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>200</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="text">
             <string>Calcular Campos</string>
            </property>
@@ -82,9 +106,24 @@
          </property>
          <item>
           <widget class="QTableWidget" name="first_field_solution_table">
-           <property name="gridStyle">
-            <enum>Qt::DotLine</enum>
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
            </property>
+           <property name="maximumSize">
+            <size>
+             <width>100000</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="gridStyle">
+            <enum>Qt::SolidLine</enum>
+           </property>
+           <attribute name="horizontalHeaderCascadingSectionResizes">
+            <bool>true</bool>
+           </attribute>
            <attribute name="horizontalHeaderDefaultSectionSize">
             <number>150</number>
            </attribute>
@@ -99,7 +138,7 @@
              <string>d'</string>
             </property>
             <property name="textAlignment">
-             <set>AlignHCenter|AlignTop</set>
+             <set>AlignHCenter|AlignVCenter|AlignCenter</set>
             </property>
            </column>
            <column>
@@ -156,6 +195,18 @@
          </property>
          <item alignment="Qt::AlignHCenter">
           <widget class="QComboBox" name="second_field_combo">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>300</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <item>
             <property name="text">
              <string>MiPrimerCalculo</string>
@@ -175,6 +226,18 @@
          </item>
          <item alignment="Qt::AlignHCenter">
           <widget class="QPushButton" name="second_field_calculation_button">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>200</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="text">
             <string>Calcular Campos</string>
            </property>
@@ -191,11 +254,23 @@
          </property>
          <item>
           <widget class="QTableWidget" name="second_field_solution_table">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>1000000</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="horizontalScrollMode">
             <enum>QAbstractItemView::ScrollPerItem</enum>
            </property>
            <attribute name="horizontalHeaderCascadingSectionResizes">
-            <bool>false</bool>
+            <bool>true</bool>
            </attribute>
            <attribute name="horizontalHeaderDefaultSectionSize">
             <number>150</number>
@@ -207,7 +282,7 @@
             <number>57</number>
            </attribute>
            <attribute name="horizontalHeaderStretchLastSection">
-            <bool>false</bool>
+            <bool>true</bool>
            </attribute>
            <attribute name="verticalHeaderCascadingSectionResizes">
             <bool>false</bool>
