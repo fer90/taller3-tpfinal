@@ -131,7 +131,7 @@ class CalculationSession(object):
         # TODO: Setear todos los parametros
         self.d = d
         
-        for d_value in range(d.get_value_from(), d.get_value_to(), d.get_value_step()):
+        for d_value in range(d.get_value_from(), d.get_value_to() + 1, d.get_value_step()):
 
             current_m_solution = []
 

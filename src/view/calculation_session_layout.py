@@ -313,6 +313,10 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
 
             file_handler = open(filename, 'w')
 
+            line = str(self.na) + ";" + str(self.nbr) + ";" + str(self.nc) + ";" + str(self.calculation_mode.value) + "\n"
+            file_handler.write(line)
+            file_handler.write("-----\n")
+
             try:
                 self.solution.dump_solution(file_handler)
             except Exception as e:
