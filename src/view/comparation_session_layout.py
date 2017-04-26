@@ -45,6 +45,7 @@ class ComparationSessionLayout(object):
 
         self.calculation_sessions = dict()
         self.lines_index = dict()
+        self.legend_index = dict()
 
         self.initialize_saved_sessions()
 
@@ -98,6 +99,7 @@ class ComparationSessionLayout(object):
             calculation_session = CalculationSession(calculation_session_name)
 
             self.lines_index[item.text()] = list()
+            self.legend_index[item.text()] = list()
 
             for solution in calculation_session.solution_list:
                 if self.figure is None:
@@ -105,19 +107,21 @@ class ComparationSessionLayout(object):
                     logging.debug("Voy a agregar la solucion " + str(solution))
                     legend = "d' = " + str(solution[0]) + ", Na = " + str(calculation_session.na) + ", \nNbr = " + str(calculation_session.nbr) + ", Nc = " + str(calculation_session.nc)
                     self.figure = self.matplot_creator.create_figure(solution[1], legend)
-                    self.matplot_creator.create_plot(self.figure)
+                    self.matplot_creator.create_plot(self.figure, False)
 
                     self.lines_index[item.text()].append(self.figure.get_current_lines())
+                    self.legend_index[item.text()].append(self.figure.get_current_legend())
                 else:
 
                     logging.debug("Voy a agregar la solucion " + str(solution))
                     legend = "d' = " + str(solution[0]) + ", Na = " + str(calculation_session.na) + ", \nNbr = " + str(calculation_session.nbr) + ", Nc = " + str(calculation_session.nc)
-                    self.lines_index[item.text()].append(self.figure.add_graphics(solution[1], legend))
+                    line1,line2 = self.figure.add_graphics(solution[1], legend)
+                    self.lines_index[item.text()].append((line1, line2))
+                    self.legend_index[item.text()].append(legend)
 
             self.na_widget.setText("Na = " + str(calculation_session.na))
             self.nbr_widget.setText("Nbr = " + str(calculation_session.nbr))
             self.nc_widget.setText("Nc = " + str(calculation_session.nc))
-            #self.d_widget.setText("d = " + str(calculation_session.d))
             if calculation_session.calculation_mode == CalculationMode.Parallel:
                 self.mode_widget.setText("Modo = PARALELO")
             else:
@@ -131,6 +135,21 @@ class ComparationSessionLayout(object):
                 self.figure.remove_points(solution[1])
             for lines in self.lines_index[item.text()]:
                 self.figure.remove_graphics(lines)
+            #for legend in self.legend_index[item.text()]:
+            self.figure.remove_legend()
 
             del self.lines_index[item.text()]
             del self.calculation_sessions[item.text()]
+            del self.legend_index[item.text()]
+
+            # Regenero el legend
+            lines_list = list()
+            label_list = list()
+            for key, value in self.lines_index.items():
+                for lines in value:
+                    lines_list.append(lines[1])
+            for key, value in self.legend_index.items():
+                for label in value:
+                    label_list.append(label)
+
+            self.figure.add_legend(lines_list, label_list)

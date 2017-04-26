@@ -24,6 +24,7 @@ class MatplotFigure(object):
 		self.y = solution_list[1]
 
 		self.current_lines = None
+		self.current_legend = None
 
 		if label is None:
 			self.ax1f1.plot(solution_list[0], solution_list[1], "o", solution_list[0], solution_list[1])
@@ -39,11 +40,15 @@ class MatplotFigure(object):
 			self.ax1f1.set_position([box.x0, box.y0, box.width * 0.8, box.height])
 
 			# Put a legend to the right of the current axis
-			self.ax1f1.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop={'size':8})
+			self.current_legend = self.ax1f1.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop={'size':8})
 
 	def get_current_lines(self):
 
 		return self.current_lines
+
+	def get_current_legend(self):
+
+		return self.current_legend
 
 	def get_canvas(self):
 
@@ -53,12 +58,12 @@ class MatplotFigure(object):
 
 		return self.toolbar
 
-	def add_plot(self, toolbar_container):
+	def add_plot(self, toolbar_container, need_remove_annotation):
 
 		self.canvas = FigureCanvas(self.figure)
 
 		# Creo el cursor que se mostrara en el grafico. Le paso el canvas y la lista de puntos
-		self.cursor = SnaptoCursor(self.canvas, self.ax1f1, self.x, self.y)
+		self.cursor = SnaptoCursor(self.canvas, self.ax1f1, self.x, self.y, need_remove_annotation)
 
 		# El evento de movimiento de cursor se conecta al plot
 		self.canvas.mpl_connect('motion_notify_event', self.cursor.mouse_move)
@@ -81,6 +86,7 @@ class MatplotFigure(object):
 
 		line1 = None
 		line2 = None
+		legend = None
 		if label is None:
 			self.ax1f1.plot(solution_list[0], solution_list[1], "o", solution_list[0], solution_list[1])
 		else:
@@ -88,7 +94,7 @@ class MatplotFigure(object):
 			line2, = self.ax1f1.plot(solution_list[0], solution_list[1], line1.get_color(), label=label)
 			#self.ax1f1.legend(prop={'size':10})
 			# Put a legend to the right of the current axis
-			self.ax1f1.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop={'size':8})
+			self.current_legend = self.ax1f1.legend(loc='center left', bbox_to_anchor=(1, 0.5), prop={'size':8})
 
 		self.cursor.append_x_y(solution_list[0], solution_list[1])
 
@@ -98,6 +104,14 @@ class MatplotFigure(object):
 
 		lines[0].remove()
 		lines[1].remove()
+
+	def remove_legend(self):
+
+		self.current_legend.remove()
+
+	def add_legend(self, line_list, label_list):
+
+		self.current_legend = self.ax1f1.legend(line_list, label_list, loc='center left', bbox_to_anchor=(1, 0.5), prop={'size':8})
 
 	def remove_points(self, remove_list):
 

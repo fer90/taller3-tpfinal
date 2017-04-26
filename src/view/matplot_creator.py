@@ -28,7 +28,7 @@ class MatplotCreator(object):
 
         return figure
 
-    def create_plot(self, figure):
+    def create_plot(self, figure, need_remove_annotation = True):
 
         # Elimino el posible widget inicial
         if self.there_is_plot:
@@ -36,11 +36,11 @@ class MatplotCreator(object):
             self.currentPlot = None
 
         self.currentPlot = figure
-        self.add_plot(figure)
+        self.add_plot(figure, need_remove_annotation)
 
-    def add_plot(self, figure):
+    def add_plot(self, figure, need_remove_annotation):
 
-        figure.add_plot(self.toolbar_container)
+        figure.add_plot(self.toolbar_container, need_remove_annotation)
 
         self.plot_container_layout.addWidget(self.currentPlot.get_canvas())
         self.toolbar_container_layout.addWidget(self.currentPlot.get_toolbar())
