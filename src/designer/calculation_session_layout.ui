@@ -642,6 +642,13 @@
              </widget>
             </item>
             <item>
+             <widget class="QPushButton" name="evolution_button">
+              <property name="text">
+               <string>Start Evolution</string>
+              </property>
+             </widget>
+            </item>
+            <item>
              <widget class="QPushButton" name="export_calculation_session_button">
               <property name="sizePolicy">
                <sizepolicy hsizetype="Maximum" vsizetype="Maximum">

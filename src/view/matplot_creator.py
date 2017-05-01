@@ -2,8 +2,6 @@
 
 from view.matplot_figure import MatplotFigure
 
-import numpy as np
-
 """
 Esta clase encapsula todo lo necesario para crear y mostrar plots en la 
 interfaz grafica, utilizando la matplotlib

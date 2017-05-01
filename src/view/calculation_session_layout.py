@@ -29,10 +29,10 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
 
         self.controller = CalculationSessionController()
 
-        #self.evolution_running = False
-        #self.evolution_thread = None
-        #self.evolution_thread_cv = threading.Condition()
-        #self.keep_evolution_running = False
+        self.evolution_running = False
+        self.evolution_thread = None
+        self.evolution_thread_cv = threading.Condition()
+        self.keep_evolution_running = False
 
         if filename is None:
             self.initialize_view_objects()
@@ -142,7 +142,9 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
         self.m_calculation_button.clicked.connect(self.m_calculation)
         self.solution_calculation_button.clicked.connect(self.solution_calculation)
         self.export_calculation_session_button.clicked.connect(self.export_calculation_session)
-        #self.evolution_button.clicked.connect(self.manage_evolution)
+        self.evolution_button.clicked.connect(self.manage_evolution)
+        # TODO: Habilitar si se fixea el tema thread/UI
+        self.evolution_button.setEnabled(False)
 
     def initialize_view_observers(self):
 
@@ -345,7 +347,7 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
             self.solution.change_current_figure_on_demand(self.solution_values_list.item(i).text())
             time.sleep(5)
 
-        """
+
         if self.evolution_running:
 
             # Freno el thread
@@ -364,10 +366,10 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
 
             # Cambio nombre a 'Stop Evolution'
             self.evolution_button.setText('Stop Evolution')
-        """
 
-        #self.evolution_running = not self.evolution_running
-"""
+
+        self.evolution_running = not self.evolution_running
+
     def run_evolution(self):
 
         cant_solutions = self.solution_values_list.count()
@@ -376,8 +378,9 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
         while self.keep_evolution_running:
 
             self.solution.change_current_figure_on_demand(self.solution_values_list.item(i).text())
+            # TODO: Tiempo de espera en cada figura configurable
             time.sleep(0.75)
             i += 1
+            # Al llegar al final, vuelvo a comenzar (solo se frena al pulsar el botón)
             if (i == cant_solutions):
                 i = 0
-"""
