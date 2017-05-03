@@ -144,7 +144,7 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
         self.export_calculation_session_button.clicked.connect(self.export_calculation_session)
         self.evolution_button.clicked.connect(self.manage_evolution)
         # TODO: Habilitar si se fixea el tema thread/UI
-        self.evolution_button.setEnabled(False)
+        #self.evolution_button.setEnabled(False)
 
     def initialize_view_observers(self):
 
@@ -200,7 +200,7 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
             if self.multiple_values_check_box.isChecked():
 
                 self.d_nz_step = int(self.step_parameter_edit_line.text())
-                self.d_nz_to = int(self.to_parameter_edit_line.text())
+                self.d_nz_to = int(self.to_parameter_edit_line.text()) + 1
 
             else:
 
@@ -342,11 +342,12 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
     def manage_evolution(self):
 
         cant_solutions = self.solution_values_list.count()
+        """
         for i in range(cant_solutions):
 
             self.solution.change_current_figure_on_demand(self.solution_values_list.item(i).text())
             time.sleep(5)
-
+        """
 
         if self.evolution_running:
 
