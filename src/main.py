@@ -48,6 +48,8 @@ class MainWindow(QMainWindow, main_window):
         self.save_field_calculation_button.clicked.connect(self.save_current_field_session)
         self.delete_field_calculation_button.clicked.connect(self.delete_current_field_session)
 
+        self.update_saved_sessions_button.clicked.connect(self.update_saved_sessions)
+
     def create_new_calculation_session(self):
 
         self.calculation_session_layout = CalculationSessionLayout(self.calculation_id)
@@ -164,6 +166,11 @@ class MainWindow(QMainWindow, main_window):
 
         # TODO: Cartel de ¿Esta seguro?
         self.field_session_container.removeTab(self.field_session_container.currentIndex())
+
+    def update_saved_sessions(self):
+
+        self.comparation_view.remove_graphics()
+        self.comparation_view.initialize_saved_sessions()
 
 if __name__ == '__main__':
 

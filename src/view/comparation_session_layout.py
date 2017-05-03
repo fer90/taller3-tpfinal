@@ -153,3 +153,24 @@ class ComparationSessionLayout(object):
                     label_list.append(label)
 
             self.figure.add_legend(lines_list, label_list)
+
+    def remove_graphics(self):
+
+        model = self.saved_calculations_list_view.model()
+
+        for index in range(model.rowCount()):
+
+            item = model.item(index)
+
+            if item.checkState() == Qt.Checked:
+
+                for solution in self.calculation_sessions[item.text()].solution_list:
+                    self.figure.remove_points(solution[1])
+                for lines in self.lines_index[item.text()]:
+                    self.figure.remove_graphics(lines)
+
+                del self.lines_index[item.text()]
+                del self.calculation_sessions[item.text()]
+                del self.legend_index[item.text()]
+
+        self.figure.remove_legend()
