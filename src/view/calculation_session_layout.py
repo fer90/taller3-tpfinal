@@ -144,7 +144,7 @@ class CalculationSessionLayout(QWidget, calculation_session_design):
         self.export_calculation_session_button.clicked.connect(self.export_calculation_session)
         self.evolution_button.clicked.connect(self.manage_evolution)
         # TODO: Habilitar si se fixea el tema thread/UI
-        #self.evolution_button.setEnabled(False)
+        self.evolution_button.setEnabled(False)
 
     def initialize_view_observers(self):
 
