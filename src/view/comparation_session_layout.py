@@ -173,4 +173,5 @@ class ComparationSessionLayout(object):
                 del self.calculation_sessions[item.text()]
                 del self.legend_index[item.text()]
 
-        self.figure.remove_legend()
+        if self.figure is not None:
+            self.figure.remove_legend()
